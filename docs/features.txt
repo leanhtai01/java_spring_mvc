@@ -1,0 +1,26 @@
+1. Customer: Add new, update, search
+- Search: name, phone number, email (SQL LIKE)
+- Update: name, phone number, email, balance (SQL LIKE, update condition: name, phone number or email)
+- Add new: name, phone number, email, balance
+
+2. Product: Add new, update, search
+- Add new: name, weight, price
+- Update: name, weight, price (get product by product_id)
+- Search: product_id, name
+
+3. Discount Management: Add new, update, search
+
+4. Deposit
+- Search customer -> Enter deposit amount -> increment balance
+
+5. Product Purchase
+- Choose product(s) (quantity, weight, type, discount) -> Choose customer (add new if not exists) -> Purchase
+
+6. Make invoice
+- Detail: products name, original price, price after discount, total
+
+7. Purchase history
+- Detail: customer's, date, total purchase price
+
+
+
