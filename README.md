@@ -13,6 +13,7 @@
 - Diagrams Design: Dia (http://dia-installer.de/)
 - UI Design: Balsamiq Wireframes (https://balsamiq.com/)
 - DBMS: MySQL/MariaDB
-- IDE:
+- IDE: Apache NetBeans 12
+- JDK 15
 ## Demo video
 - Link Youtube:
