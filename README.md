@@ -1,4 +1,11 @@
 # team18_final_project
+## Danh sách nhóm
+|MSSV|Họ và tên|Ghi chú|
+|----|---------|-------|
+|1760169|Lê Anh Tài|Nhóm trưởng|
+|1760147|Hồ Thiên Phúc||
+|1560240|Trần Chí Hữu||
+|18600043|Hoàng Dương Đạt||
 ## Rules
 - Vào phần Work assignment để xem công việc được giao
 - Tạo new branch trước khi làm phần được phân công
