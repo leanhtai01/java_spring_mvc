@@ -13,6 +13,7 @@
 ## Work assigment
 - Link: https://docs.google.com/spreadsheets/d/1UsgANYXL3WzUvxwZ43tJSK-sfK1Fg3L03TNuYzqA3_Y/edit?usp=sharing
 ## Directory structure
+- database_scripts: SQL scripts to create database, insert data, create stored procedure,...
 - docs: project documents
 - diagrams: database diagrams
 - ui_designs: User interface design (mockups)
