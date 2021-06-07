@@ -25,7 +25,9 @@ CREATE TABLE customers (
     email VARCHAR(50) NOT NULL,
     balance DECIMAL(13, 4) NOT NULL,
     membership_type_id INT NOT NULL,
-    CONSTRAINT pk_customer PRIMARY KEY(id)
+    CONSTRAINT pk_customer PRIMARY KEY(id),
+    CONSTRAINT unq_customer_phone_number UNIQUE(phone_number),
+    CONSTRAINT unq_customer_email UNIQUE(email)
 );
 
 -- create table membership_types
@@ -87,7 +89,8 @@ CREATE TABLE products (
     name VARCHAR(50) NOT NULL,
     weight DOUBLE NOT NULL,
     price DECIMAL(13, 4) NOT NULL,
-    CONSTRAINT pk_product PRIMARY KEY(id)
+    CONSTRAINT pk_product PRIMARY KEY(id),
+    CONSTRAINT unq_product_name_weight UNIQUE(name, weight)
 );
 
 -- create table product_discounts
