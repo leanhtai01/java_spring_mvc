@@ -7,7 +7,7 @@
 |1560240|Trần Chí Hữu||
 |18600043|Hoàng Dương Đạt||
 ## Rules
-**Important**: Tôn trọng **tuyệt đối** quy tắc đặt tên file, folder trong phần phân công, trong file report.pdf
+**Important**: Tôn trọng **tuyệt đối** quy tắc đặt tên file, folder trong phần Work assignment, trong file report.pdf
 - Vào phần Work assignment để xem công việc được giao
 - Tạo new branch trước khi làm phần được phân công
 - Khi làm xong tạo tạo pull request và báo qua Zalo
