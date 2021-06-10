@@ -34,6 +34,7 @@ CREATE TABLE customers (
 CREATE TABLE membership_types (
     id INT NOT NULL AUTO_INCREMENT,
     membership_type VARCHAR(20),
+    debt_limit DECIMAL(13, 4) NOT NULL,
     discount_value DECIMAL(13, 4) NOT NULL,
     discount_unit VARCHAR(20) NOT NULL,
     valid_from DATE NOT NULL,
