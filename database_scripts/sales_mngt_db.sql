@@ -145,3 +145,34 @@ ALTER TABLE product_discounts
     ADD CONSTRAINT fk_product_discount_products
     FOREIGN KEY(product_id)
     REFERENCES products(id);
+
+-- insert data into table membership_types
+INSERT INTO membership_types(membership_types, debt_limit, discount_value,
+                             discount_unit, valid_from, valid_until)
+VALUES ('basic', 10000000, 0, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25'),
+       ('silver', 20000000, 10, 'PERCENT', '2021-06-11', '2021-07-25'),
+       ('gold', 30000000, 1000000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25')
+       ('platinum', 50000000, 15, 'PERCENT', '2021-06-11', '2021-07-25');
+
+-- insert data into table customers
+INSERT INTO customers(name, phone_number, email, balance, membership_type_id)
+VALUES ('Nguyễn Văn Vạn', '0913456456', 'nguyenvanvan@gmail.com', 17000000, 1),
+       ('Trần Xuân Vinh', '0566774332', 'tranxuanvinh@yahoo.com', 50000000, 2),
+       ('Lý Thị Hằng', '0764563762', 'lthang@outlook.com', 10000000, 3),
+       ('Võ Văn Thiện', '0876456765', 'vvthien@gmail.com', 25000000, 4),
+       ('Lê Thị Linh', '0765345654', 'ltlinh01@gmail.com', 5000000, 1);
+
+-- insert data into table products
+INSERT INTO products(name, weight, price)
+VALUES ('Phân bón A', 100, 500000),
+       ('Phân bón A', 200, 1000000),
+       ('Phân bón A', 500, 5000000),
+       ('Phân bón B', 100, 200000);
+
+-- insert data into table product_discounts
+INSERT INTO product_discounts(product_id, discount_value, discount_unit,
+                              valid_from, valid_until)
+VALUES (1, 10, 'PERCENT', '2021-06-11', '2021-07-25'),
+       (2, 100000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25'),
+       (3, 0, 'PERCENT', '2021-06-11', '2021-07-25'),
+       (4, 20000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25');
