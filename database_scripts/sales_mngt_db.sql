@@ -147,11 +147,11 @@ ALTER TABLE product_discounts
     REFERENCES products(id);
 
 -- insert data into table membership_types
-INSERT INTO membership_types(membership_types, debt_limit, discount_value,
+INSERT INTO membership_types(membership_type, debt_limit, discount_value,
                              discount_unit, valid_from, valid_until)
 VALUES ('basic', 10000000, 0, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25'),
        ('silver', 20000000, 10, 'PERCENT', '2021-06-11', '2021-07-25'),
-       ('gold', 30000000, 1000000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25')
+       ('gold', 30000000, 1000000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25'),
        ('platinum', 50000000, 15, 'PERCENT', '2021-06-11', '2021-07-25');
 
 -- insert data into table customers
