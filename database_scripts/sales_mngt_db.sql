@@ -36,7 +36,7 @@ CREATE TABLE membership_types (
     membership_type VARCHAR(20),
     debt_limit DECIMAL(13, 4) NOT NULL,
     discount_value DECIMAL(13, 4) NOT NULL,
-    discount_unit VARCHAR(20) NOT NULL,
+    discount_unit ENUM('PERCENT', 'FLAT_CURRENCY'),
     valid_from DATE NOT NULL,
     valid_until DATE NOT NULL,
     CONSTRAINT pk_membership_type PRIMARY KEY(id)
@@ -70,7 +70,7 @@ CREATE TABLE orders (
     customer_id INT NOT NULL,
     order_date DATE NOT NULL,
     discount_value DECIMAL(13, 4) NOT NULL,
-    discount_unit VARCHAR(20) NOT NULL,
+    discount_unit ENUM('PERCENT', 'FLAT_CURRENCY'),
     CONSTRAINT pk_order PRIMARY KEY(id)
 );
 
@@ -80,7 +80,7 @@ CREATE TABLE order_details (
     product_id INT NOT NULL,
     quantity INT NOT NULL,
     discount_value DECIMAL(13, 4) NOT NULL,
-    discount_unit VARCHAR(20) NOT NULL,
+    discount_unit ENUM('PERCENT', 'FLAT_CURRENCY'),
     CONSTRAINT pk_order_detail PRIMARY KEY(order_id, product_id)
 );
 
@@ -99,7 +99,7 @@ CREATE TABLE product_discounts (
     id INT NOT NULL AUTO_INCREMENT,
     product_id INT NOT NULL,
     discount_value DECIMAL(13, 4) NOT NULL,
-    discount_unit VARCHAR(20) NOT NULL,
+    discount_unit ENUM('PERCENT', 'FLAT_CURRENCY'),
     valid_from DATE NOT NULL,
     valid_until DATE NOT NULL,
     CONSTRAINT pk_product_discount PRIMARY KEY(id)
