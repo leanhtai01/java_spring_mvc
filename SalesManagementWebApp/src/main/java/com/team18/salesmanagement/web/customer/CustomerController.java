@@ -5,7 +5,6 @@
 // GitHub: https://github.com/leanhtai01
 package com.team18.salesmanagement.web.customer;
 
-import com.team18.salesmanagement.data.customer.CustomerRepository;
 import com.team18.salesmanagement.domain.customer.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.team18.salesmanagement.data.customer.ICustomerRepository;
 
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
-    CustomerRepository customerRepository;
+    ICustomerRepository customerRepository;
     
     // get all Customer's information
     @RequestMapping(value = "/getlist", method = RequestMethod.GET)

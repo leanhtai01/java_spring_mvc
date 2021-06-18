@@ -1,4 +1,4 @@
-// File: CustomerRepository.java
+// File: ICustomerRepository.java
 // Define data access operation for Customer
 // Author: 1760169 - Le Anh Tai
 // Email: leanhtai01@gmail.com
@@ -8,6 +8,6 @@ package com.team18.salesmanagement.data.customer;
 import com.team18.salesmanagement.domain.customer.Customer;
 import java.util.List;
 
-public interface CustomerRepository {
+public interface ICustomerRepository {
     List<Customer> getCustomerList();
 }

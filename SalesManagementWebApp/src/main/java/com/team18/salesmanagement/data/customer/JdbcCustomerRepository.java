@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class JdbcCustomerRepository implements CustomerRepository {
+public class JdbcCustomerRepository implements ICustomerRepository {
 
     private final JdbcOperations jdbcOperations;
 
