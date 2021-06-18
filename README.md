@@ -19,6 +19,7 @@
 - docs: project documents
 - diagrams: database diagrams
 - ui_designs: User interface design (mockups)
+- SalesManagementWebApp: NetBeans project
 ## Softwares
 - Diagrams Design: Dia (http://dia-installer.de/)
 - UI Design: Balsamiq Wireframes (https://balsamiq.com/)
