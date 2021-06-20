@@ -21,12 +21,18 @@ public class CustomerController {
     ICustomerRepository customerRepository;
     
     // get all Customer's information
-    @RequestMapping(value = "/getlist", method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String displayCustomerList(Model model) {
         List<Customer> customerList = customerRepository.getCustomerList();
         
         model.addAttribute(customerList);
         
-        return "customer/customer_list";
+        return "customer/list";
     } // end method displayCustomerList
+    
+    // display Customer Management Page
+    @RequestMapping(value = "/manager", method = RequestMethod.GET)
+    public String displayManagementPage() {
+        return "customer/manager";
+    }
 } // end class CustomerController
