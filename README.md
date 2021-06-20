@@ -5,7 +5,6 @@
 |1760169|Lê Anh Tài|Nhóm trưởng|
 |1760147|Hồ Thiên Phúc||
 |1560240|Trần Chí Hữu||
-|18600043|Hoàng Dương Đạt||
 ## Rules
 **Important**: Tôn trọng **tuyệt đối** quy tắc đặt tên file, folder trong phần Work assignment, trong file report.pdf
 - Vào phần Work assignment để xem công việc được giao
