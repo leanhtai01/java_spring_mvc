@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @Configuration
@@ -27,7 +28,12 @@ public class DataConfig {
     }
     
     @Bean
-    public JdbcOperations jdbcOperations(DataSource dataSource) {
+    public JdbcTemplate jdbcOperations(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+    
+    @Bean
+    public SimpleJdbcCall simpleJdbcCall(JdbcOperations jdbcOperations) {
+        return new SimpleJdbcCall(jdbcOperations(dataSource()));
     }
 }

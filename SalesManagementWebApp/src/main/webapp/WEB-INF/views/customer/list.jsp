@@ -16,21 +16,19 @@
     <body>
         <h1>All Customer's information</h1>
         <table>
-            <th>id</th>
             <th>name</th>
             <th>phone_number</th>
             <th>email</th>
             <th>balance</th>
-            <th>membership_type_id</th>
+            <th>membership_type</th>
             
             <c:forEach var="customer" items="${customerList}">
                 <tr>
-                    <td>${customer.id}</td>
                     <td>${customer.name}</td>
                     <td>${customer.phoneNumber}</td>
                     <td>${customer.email}</td>
                     <td>${customer.balance}</td>
-                    <td>${customer.membershipTypeId}</td>
+                    <td>${customer.membershipType}</td>
                 </tr>
             </c:forEach>
         </table>

@@ -15,17 +15,20 @@ public class Customer implements Serializable {
     private String email;
     private BigDecimal balance;
     private Integer membershipTypeId;
+    private String membershipType;
 
     public Customer() {}
 
-    public Customer(Integer id, String name, String phoneNumber, String email, 
-            BigDecimal balance, Integer membershipTypeId) {
+    public Customer(Integer id, String name, String phoneNumber, String email,
+            BigDecimal balance, Integer membershipTypeId,
+            String membershipType) {
         this.id = id;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.balance = balance;
         this.membershipTypeId = membershipTypeId;
+        this.membershipType = membershipType;
     }
 
     public Integer getId() {
@@ -74,5 +77,13 @@ public class Customer implements Serializable {
 
     public void setMembershipTypeId(Integer membershipTypeId) {
         this.membershipTypeId = membershipTypeId;
+    }
+
+    public String getMembershipType() {
+        return membershipType;
+    }
+
+    public void setMembershipType(String membershipType) {
+        this.membershipType = membershipType;
     }
 } // end class Customer

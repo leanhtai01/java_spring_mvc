@@ -176,3 +176,29 @@ VALUES (1, 10, 'PERCENT', '2021-06-11', '2021-07-25'),
        (2, 100000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25'),
        (3, 0, 'PERCENT', '2021-06-11', '2021-07-25'),
        (4, 20000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25');
+
+-- create stored procedure get Customer's detail
+DELIMITER $$
+
+CREATE PROCEDURE get_customer_detail(IN param_phone_number VARCHAR(50))
+BEGIN
+    IF (param_phone_number IS NULL)
+    THEN
+        SELECT c.id, c.name, c.phone_number, c.email, c.balance,
+	       c.membership_type_id,
+	       (SELECT mst.membership_type
+	        FROM membership_types mst
+		WHERE mst.id = c.membership_type_id) AS membership_type
+	FROM customers c;
+    ELSE
+        SELECT c.id, c.name, c.phone_number, c.email, c.balance,
+	       c.membership_type_id,
+	       (SELECT mst.membership_type
+	        FROM membership_types mst
+		WHERE mst.id = c.membership_type_id) AS membership_type
+	FROM customers c
+	WHERE c.phone_number = param_phone_number;
+    END IF;
+END $$
+
+DELIMITER ;
