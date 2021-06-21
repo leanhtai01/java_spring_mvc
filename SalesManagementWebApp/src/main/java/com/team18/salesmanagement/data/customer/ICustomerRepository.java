@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface ICustomerRepository {
     List<Customer> getCustomerInfo(String phoneNumber);
+    void deleteCustomer(int id);
 }

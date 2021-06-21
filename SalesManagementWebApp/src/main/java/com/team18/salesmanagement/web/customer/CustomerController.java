@@ -44,4 +44,12 @@ public class CustomerController {
     public String displaySearchPage() {
         return "customer/search";
     }
+    
+    // delete Customer
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteCustomer(@RequestParam int id) {
+        customerRepository.deleteCustomer(id);
+        
+        return "redirect:/customer/list?phoneNumber=";
+    }
 } // end class CustomerController

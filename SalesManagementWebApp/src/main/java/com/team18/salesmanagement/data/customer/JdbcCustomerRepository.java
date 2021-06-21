@@ -55,4 +55,13 @@ public class JdbcCustomerRepository implements ICustomerRepository {
                 .execute(inParams);
         return (List<Customer>) result.get("customers");
     } // end method getCustomerList
+    
+    // delete Customer by id
+    @Override
+    public void deleteCustomer(int id) {
+        final String DELETE_CUSTOMER = "DELETE FROM customers"
+                + " WHERE id = ?";
+        
+        jdbcOperations.update(DELETE_CUSTOMER, id);
+    }
 } // end class JdbcCustomerRepository
