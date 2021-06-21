@@ -11,10 +11,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/main.css">
-        <title>Customer List</title>
+        <title>Customer's Information</title>
     </head>
     <body>
-        <h1>All Customer's information</h1>
         <table>
             <th>name</th>
             <th>phone_number</th>

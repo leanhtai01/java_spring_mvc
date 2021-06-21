@@ -27,15 +27,20 @@ public class JdbcCustomerRepository implements ICustomerRepository {
         this.simpleJdbcCall = simpleJdbcCall;
     }
 
-    // get Customer list
+    // get Customer's information
     @Override
-    public List<Customer> getCustomerList() {
+    public List<Customer> getCustomerInfo(String phoneNumber) {
         Map<String, Object> inParams = new HashMap<>();
-        
-        inParams.put("param_phone_number", null);
-        
+
+        if (phoneNumber.isEmpty()) {
+            inParams.put("param_phone_number", null);
+        }
+        else {
+            inParams.put("param_phone_number", phoneNumber);
+        }
+
         Map<String, Object> result = simpleJdbcCall
-                .withProcedureName("get_customer_detail")
+                .withProcedureName("get_customer_info")
                 .returningResultSet("customers", (rs, rowNum) -> {
                     return new Customer(
                             rs.getInt("id"),

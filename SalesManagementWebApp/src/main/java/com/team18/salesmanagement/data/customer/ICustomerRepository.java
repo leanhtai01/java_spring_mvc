@@ -9,5 +9,5 @@ import com.team18.salesmanagement.domain.customer.Customer;
 import java.util.List;
 
 public interface ICustomerRepository {
-    List<Customer> getCustomerList();
+    List<Customer> getCustomerInfo(String phoneNumber);
 }

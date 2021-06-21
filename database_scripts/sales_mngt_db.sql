@@ -180,7 +180,7 @@ VALUES (1, 10, 'PERCENT', '2021-06-11', '2021-07-25'),
 -- create stored procedure get Customer's detail
 DELIMITER $$
 
-CREATE PROCEDURE get_customer_detail(IN param_phone_number VARCHAR(50))
+CREATE PROCEDURE get_customer_info(IN param_phone_number VARCHAR(50))
 BEGIN
     IF (param_phone_number IS NULL)
     THEN

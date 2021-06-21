@@ -12,7 +12,7 @@
         <title>Customer Management</title>
     </head>
     <body>
-        <a href="list">Display Customer List</a><br>
+        <a href="list?phoneNumber=">Display Customer List</a><br>
         <a href="search">Search customer</a>
     </body>
 </html>

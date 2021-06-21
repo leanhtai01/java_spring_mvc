@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.team18.salesmanagement.data.customer.ICustomerRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/customer")
@@ -22,8 +23,10 @@ public class CustomerController {
     
     // get all Customer's information
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String displayCustomerList(Model model) {
-        List<Customer> customerList = customerRepository.getCustomerList();
+    public String displayCustomerInfo(@RequestParam String phoneNumber,
+            Model model) {
+        List<Customer> customerList = customerRepository
+                .getCustomerInfo(phoneNumber);
         
         model.addAttribute(customerList);
         
@@ -34,5 +37,11 @@ public class CustomerController {
     @RequestMapping(value = "/manager", method = RequestMethod.GET)
     public String displayManagementPage() {
         return "customer/manager";
+    }
+    
+    // display Customer Search Page
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String displaySearchPage() {
+        return "customer/search";
     }
 } // end class CustomerController
