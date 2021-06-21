@@ -64,4 +64,25 @@ public class JdbcCustomerRepository implements ICustomerRepository {
         
         jdbcOperations.update(DELETE_CUSTOMER, id);
     }
+    
+    // get Customer by id
+    @Override
+    public Customer getCustomer(int id) {
+        final String GET_CUSTOMER = "SELECT * FROM customers"
+                + " WHERE id = ?;";
+        
+        return jdbcOperations.queryForObject(GET_CUSTOMER,
+                (rs, rowNum) -> {
+                    return new Customer(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("phone_number"),
+                            rs.getString("email"),
+                            rs.getBigDecimal("balance"),
+                            rs.getInt("membership_type_id"),
+                            rs.getString("membership_type")
+                    );
+                }, id);
+    }
+    
 } // end class JdbcCustomerRepository
