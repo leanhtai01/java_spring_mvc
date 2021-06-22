@@ -59,6 +59,6 @@ public class ProductController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveProduct(@ModelAttribute("product") Product product, BindingResult result, ModelMap model) {
         int rs = iProductRepository.saveProduct(product);
-        return "products/list";
+        return "redirect:list";
     }
 }

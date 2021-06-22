@@ -44,6 +44,10 @@
             <h1>Edit Product</h1>
             </c:if>
             <form action="save" method="POST" onsubmit="return validData()">
+                <div class="form-group" style="display: none">
+                  <label for="id">ID</label>
+                  <input type="text" class="form-control" id="id" name="id" value="${product.id}">
+                </div>
                 <div class="form-group">
                   <label for="exampleInputName">Name</label>
                   <input type="text" class="form-control" id="exampleInputName" placeholder="Enter Name" name="name" maxlength="50" value="${product.name}">
