@@ -13,6 +13,7 @@
     </head>
     <body>
         <a href="list?phoneNumber=">Display Customer List</a><br>
-        <a href="search">Search customer</a>
+        <a href="search">Search customer</a><br>
+        <a href="add_form">Add new customer</a>
     </body>
 </html>

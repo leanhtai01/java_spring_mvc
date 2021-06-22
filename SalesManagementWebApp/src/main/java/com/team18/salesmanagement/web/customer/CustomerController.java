@@ -52,4 +52,10 @@ public class CustomerController {
         
         return "redirect:/customer/list?phoneNumber=";
     }
+    
+    // display Customer add form
+    @RequestMapping(value = "/add_form", method = RequestMethod.GET)
+    public String displayAddForm() {
+        return "customer/add_form";
+    }
 } // end class CustomerController
