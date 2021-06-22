@@ -12,6 +12,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +49,16 @@ public class ProductController {
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String editProduct(@RequestParam("id") Integer id, Model m) {
         Product product = iProductRepository.getProductbyId(id);
-        m.addAttribute("product", m);
+        m.addAttribute("product", product);
         return "products/update";
+    }
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    public String editProduct() {
+        return "products/update";
+    }
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String saveProduct(@ModelAttribute("product") Product product, BindingResult result, ModelMap model) {
+        int rs = iProductRepository.saveProduct(product);
+        return "products/list";
     }
 }

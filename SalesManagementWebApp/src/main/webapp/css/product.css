@@ -8,9 +8,16 @@ and open the template in the editor.
     Author     : HuuDepTrai
 */
 
-#product form #find {
+#product form {
+    display: inline-block;
+}
+#product form#find {
     float: right;
     margin-right: 3rem;
+}
+#product form#add {
+    float: left;
+    margin-left: 3rem;
 }
 #product th,td {
   border: 1px solid #cccccc;
@@ -21,16 +28,26 @@ and open the template in the editor.
     padding: 3rem;
 }
 #product table th {
-  background: #edf1f6;
-  color: #333;
+  background: cornflowerblue;
+  color: azure;
   word-break: keep-all;
   vertical-align: middle;
   text-align: center;
 }
-#product table th {
+#product table td {
   background: #ffffff;
   color: #333;
   word-break: keep-all;
   vertical-align: middle;
   text-align: left;
+}
+
+#productAdd {
+    padding: 1.5rem;
+}
+#productAdd {
+    padding: 1.5rem;
+}
+#productAdd .btn-primary,.btn-secondary{
+    margin-top: .75rem;
 }

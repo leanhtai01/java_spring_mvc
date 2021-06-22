@@ -45,7 +45,7 @@ public class ProductRepositoryIml implements IProductRepository{
     public Product getProductbyId(Integer id){
         Product result = new Product();
         String SQL = "select * from products where id="+ id;
-        result = (Product) jdbcOperations.query(SQL, (rs, rowNum) -> {
+        result = (Product) jdbcOperations.queryForObject(SQL, (rs, rowNum) -> {
                     return new Product(
                             rs.getInt("id"),
                             rs.getString("name"),
@@ -63,4 +63,17 @@ public class ProductRepositoryIml implements IProductRepository{
         return result;
     }
     
+    @Override
+    public int saveProduct(Product product){
+        int result = 0;
+        String SQL = "";
+        if (product.getId() != null) {
+            SQL = "UPDATE products SET name=?, weight=?, price=? WHERE id = ?";
+            result = jdbcOperations.update(SQL, product.getName(), product.getWeight(), product.getPrice(), product.getId());
+        } else {
+            SQL = "INSERT INTO products(name, weight, price) VALUES (?,?,?)";
+            result = jdbcOperations.update(SQL, product.getName(), product.getWeight(), product.getPrice());
+        }
+        return result;
+    }
 }

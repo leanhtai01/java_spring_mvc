@@ -15,7 +15,6 @@
         <!--<script src="../../../scripts/product.js"></script>-->
         <script>
             function handleDel(id) {
-                var txt;
                 var r = confirm(`Are you sure to delete this product! `);
                 if (r == true) {
                     var xhttp = new XMLHttpRequest() || ActiveXObject();
@@ -37,7 +36,7 @@
     <body id="product">
         <body>
         <h1>Products Manager</h1>
-        <form action="add">
+        <form id="add" action="add">
             <button type="submit">Add</button>
         </form>
         <form id="find" action="find">
@@ -45,7 +44,7 @@
             <button type="submit">Find</button>
         </form>
         <c:if test = "${products.size() == 0}">
-         <p>No Data To Show!<p>
+            <p style="text-align: center; margin-top: 6rem;">No Data To Show!<p>
         </c:if>
              
         <c:if test = "${products.size() != 0}">

@@ -15,5 +15,6 @@ import java.util.List;
 public interface IProductRepository {
     List<Product> getProductList(String keyWords);
     Product getProductbyId(Integer id);
+    int saveProduct(Product product);
     int deleteProduct(Integer id);
 }
