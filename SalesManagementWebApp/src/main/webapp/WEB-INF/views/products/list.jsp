@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" href="../css/product.css">
         <title>Products</title>
-        <!--<script src="../../../scripts/product.js"></script>-->
+        <!--<script type="text/javascript" src="../../../scripts/product.js"></script>-->
         <script>
             function handleDel(id) {
                 var r = confirm(`Are you sure to delete this product! `);
