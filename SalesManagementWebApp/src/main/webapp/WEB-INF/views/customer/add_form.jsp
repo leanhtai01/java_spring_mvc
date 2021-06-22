@@ -4,6 +4,7 @@
     Author     : leanhtai01
 --%>
 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="sf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,9 +22,9 @@
             <label>Balance: <input type="text" name="balance"></label><br>
             <label>Membership:
                 <select name="membershipTypeId">
-                    <option value="1">basic</option>
-                    <option value="2">gold</option>
-                    <option value="3">platinum</option>
+                    <c:forEach var="mt" items="${membershipTypeList}">
+                        <option value="${mt.id}">${mt.membershipType}</option>
+                    </c:forEach>
                 </select>
             </label><br>
             <input type="hidden" name="membershipType" value="garbage">

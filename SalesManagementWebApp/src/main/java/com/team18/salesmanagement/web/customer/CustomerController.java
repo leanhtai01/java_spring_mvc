@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.team18.salesmanagement.data.customer.ICustomerRepository;
+import com.team18.salesmanagement.data.membershiptype.IMembershipTypeRepository;
+import com.team18.salesmanagement.domain.membershiptype.MembershipType;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -20,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class CustomerController {
     @Autowired
     ICustomerRepository customerRepository;
+    
+    @Autowired
+    IMembershipTypeRepository membershipTypeRepository;
     
     // get all Customer's information
     @RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -55,7 +60,11 @@ public class CustomerController {
     
     // display Customer add form
     @RequestMapping(value = "/add_form", method = RequestMethod.GET)
-    public String displayAddForm() {
+    public String displayAddForm(Model model) {
+        List<MembershipType> membershipTypeList = membershipTypeRepository
+                .getList();
+        model.addAttribute(membershipTypeList);
+        
         return "customer/add_form";
     }
 } // end class CustomerController
