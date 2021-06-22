@@ -5,9 +5,7 @@
  */
 
 
-<script>
     function handleDel(id) {
-        var txt;
         var r = confirm(`Are you sure to delete this product! `);
         if (r == true) {
             var xhttp = new XMLHttpRequest() || ActiveXObject();
@@ -20,4 +18,7 @@
                 xhttp.send();
             }
         }
-</script>
+
+    function handleEdit(id) {
+        window.location.href = "edit?id=" + id;
+    }
