@@ -5,6 +5,8 @@
 // GitHub: https://github.com/leanhtai01
 package com.team18.salesmanagement.web.customer;
 
+import com.team18.salesmanagement.data.customer.DuplicateEmailException;
+import com.team18.salesmanagement.data.customer.DuplicatePhoneNumberException;
 import com.team18.salesmanagement.domain.customer.Customer;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +86,23 @@ public class CustomerController {
     // process add new Customer
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAdd(Customer customer, RedirectAttributes model) {
-        // insert customer
+        try {
+            // insert customer
+            
+            model.addFlashAttribute(customer);
         
-        model.addFlashAttribute(customer);
-        
-        return "redirect:/customer/add_success";
+            return "redirect:/customer/add_success";
+        }
+        catch (DuplicatePhoneNumberException e) {
+            model.addAttribute("phoneNumber", customer.getPhoneNumber());
+            
+            return "error/duplicate_phone_number";
+        }
+        catch (DuplicateEmailException e) {
+            model.addAttribute("email", customer.getEmail());
+            
+            return "error/duplicate_email";
+        }
     }
     
     // display update form
@@ -107,10 +121,22 @@ public class CustomerController {
     // process update Customer
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String processUpdate(Customer customer, RedirectAttributes model) {
-        // update customer
+        try {
+            // update customer
         
-        model.addFlashAttribute(customer);
+            model.addFlashAttribute(customer);
         
-        return "redirect:/customer/update_success";
+            return "redirect:/customer/update_success";
+        }
+        catch (DuplicatePhoneNumberException e) {
+            model.addAttribute("phoneNumber", customer.getPhoneNumber());
+            
+            return "error/duplicate_phone_number";
+        }
+        catch (DuplicateEmailException e) {
+            model.addAttribute("email", customer.getEmail());
+            
+            return "error/duplicate_email";
+        }
     }
 } // end class CustomerController
