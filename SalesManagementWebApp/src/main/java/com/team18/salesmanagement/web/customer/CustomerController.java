@@ -16,6 +16,7 @@ import com.team18.salesmanagement.data.customer.ICustomerRepository;
 import com.team18.salesmanagement.data.membershiptype.IMembershipTypeRepository;
 import com.team18.salesmanagement.domain.membershiptype.MembershipType;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/customer")
@@ -66,5 +67,21 @@ public class CustomerController {
         model.addAttribute(membershipTypeList);
         
         return "customer/add_form";
+    }
+    
+    // display add success page
+    @RequestMapping(value = "add_success", method = RequestMethod.GET)
+    public String displayAddSuccess() {
+        return "customer/add_success";
+    }
+    
+    // process add new Customer
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    public String processAdd(Customer customer, RedirectAttributes model) {
+        // insert customer
+        
+        model.addFlashAttribute(customer);
+        
+        return "redirect:/customer/add_success";
     }
 } // end class CustomerController
