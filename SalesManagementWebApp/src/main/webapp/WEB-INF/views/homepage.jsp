@@ -33,7 +33,7 @@
                         <li><a class="nav-link" href="customer/manager">Customer</a></li>
                         <li><a class="nav-link" href="product/getlist">Product</a></li>
                         <li><a class="nav-link" href="discount/getlist">Discount</a></li>
-                        <li><a class="nav-link" href="member/getlist">Member</a></li>
+                        <li><a class="nav-link" href="membershiptype/manager">Member</a></li>
                     </ul>
                 </div>
             </div>
