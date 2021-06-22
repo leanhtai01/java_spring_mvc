@@ -202,3 +202,38 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure insert new Customer
+DELIMITER $$
+
+CREATE PROCEDURE insert_customer(IN cust_name VARCHAR(50),
+                                 IN cust_phone_number VARCHAR(50),
+				 IN cust_email VARCHAR(50),
+				 IN cust_balance DECIMAL(13, 4),
+				 IN cust_membership_ship_id INT,
+				 OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE phone_number = cust_phone_number) > 0)
+    THEN
+        SET error_code = 1; -- phone number already exist
+    ELSE
+        IF ((SELECT COUNT(*)
+	     FROM customers
+	     WHERE email = cust_email) > 0)
+	THEN
+	    SET error_code = 2; -- email already exists
+	ELSE
+	    -- insert new user
+	    INSERT INTO customers(name, phone_number, email, balance,
+	                          membership_type_id)
+	    VALUES (cust_name, cust_phone_number, cust_email, cust_balance,
+	            cust_membership_ship_id);
+		    
+	    SET error_code = 0; -- insert success
+	END IF;
+    END IF;
+END $$
+
+DELIMITER ;
