@@ -1,0 +1,53 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 21, 2021, 11:03:34 PM
+    Author     : HuuDepTrai
+*/
+
+#product form {
+    display: inline-block;
+}
+#product form#find {
+    float: right;
+    margin-right: 3rem;
+}
+#product form#add {
+    float: left;
+    margin-left: 3rem;
+}
+#product th,td {
+  border: 1px solid #cccccc;
+  padding: 8px
+}
+#product table {
+    width: 100%;
+    padding: 3rem;
+}
+#product table th {
+  background: cornflowerblue;
+  color: azure;
+  word-break: keep-all;
+  vertical-align: middle;
+  text-align: center;
+}
+#product table td {
+  background: #ffffff;
+  color: #333;
+  word-break: keep-all;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#productAdd {
+    padding: 1.5rem;
+}
+#productAdd {
+    padding: 1.5rem;
+}
+#productAdd .btn-primary,.btn-secondary{
+    margin-top: .75rem;
+}
