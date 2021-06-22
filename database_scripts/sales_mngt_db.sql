@@ -237,3 +237,40 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure update a Customer
+DELIMITER $$
+
+CREATE PROCEDURE update_customer(IN cust_id INT,
+                                 IN cust_name VARCHAR(50),
+                                 IN cust_phone_number VARCHAR(50),
+			         IN cust_email VARCHAR(50),
+				 IN cust_balance DECIMAL(13, 4),
+				 IN cust_membership_ship_id INT,
+				 OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE phone_number = cust_phone_number AND id != cust_id) > 0)
+    THEN
+        SET error_code = 1; -- phone number already exist
+    ELSE
+        IF ((SELECT COUNT(*)
+	     FROM customers
+	     WHERE email = cust_email AND id != cust_id) > 0)
+	THEN
+	    SET error_code = 2; -- email already exists
+	ELSE
+	    -- update the Customer
+	    UPDATE customers
+	    SET name = cust_name, phone_number = cust_phone_number,
+	        email = cust_email, balance = cust_balance,
+		membership_type_id = cust_membership_ship_id
+	    WHERE id = cust_id;
+		    
+	    SET error_code = 0; -- update success
+	END IF;
+    END IF;
+END $$
+
+DELIMITER ;
