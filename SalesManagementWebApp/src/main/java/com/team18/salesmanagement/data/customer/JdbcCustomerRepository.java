@@ -84,4 +84,29 @@ public class JdbcCustomerRepository implements ICustomerRepository {
                 }, id);
     }
     
+    // insert a Customer
+    @Override
+    public void insert(Customer customer) {
+        Map<String, Object> params = new HashMap<>();
+        int error_code = 0;
+        
+        params.put("cust_name", customer.getName());
+        params.put("cust_phone_number", customer.getPhoneNumber());
+        params.put("cust_email", customer.getEmail());
+        params.put("cust_balance", customer.getBalance());
+        params.put("cust_membership_type_id", customer.getMembershipTypeId());
+        params.put("error_code", error_code);
+        
+        Map<String, Object> result = simpleJdbcCall
+                .withProcedureName("insert_customer")
+                .execute(params);
+        error_code = (int) result.get("error_code");
+        
+        if (error_code == 1) {
+            throw new DuplicatePhoneNumberException();
+        }
+        else if (error_code == 2) {
+            throw new DuplicateEmailException();
+        }
+    }
 } // end class JdbcCustomerRepository
