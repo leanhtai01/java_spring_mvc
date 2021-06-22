@@ -210,7 +210,7 @@ CREATE PROCEDURE insert_customer(IN cust_name VARCHAR(50),
                                  IN cust_phone_number VARCHAR(50),
 				 IN cust_email VARCHAR(50),
 				 IN cust_balance DECIMAL(13, 4),
-				 IN cust_membership_ship_id INT,
+				 IN cust_membership_type_id INT,
 				 OUT error_code INT)
 BEGIN
     IF ((SELECT COUNT(*)
@@ -229,7 +229,7 @@ BEGIN
 	    INSERT INTO customers(name, phone_number, email, balance,
 	                          membership_type_id)
 	    VALUES (cust_name, cust_phone_number, cust_email, cust_balance,
-	            cust_membership_ship_id);
+	            cust_membership_type_id);
 		    
 	    SET error_code = 0; -- insert success
 	END IF;
@@ -246,7 +246,7 @@ CREATE PROCEDURE update_customer(IN cust_id INT,
                                  IN cust_phone_number VARCHAR(50),
 			         IN cust_email VARCHAR(50),
 				 IN cust_balance DECIMAL(13, 4),
-				 IN cust_membership_ship_id INT,
+				 IN cust_membership_type_id INT,
 				 OUT error_code INT)
 BEGIN
     IF ((SELECT COUNT(*)
@@ -265,7 +265,7 @@ BEGIN
 	    UPDATE customers
 	    SET name = cust_name, phone_number = cust_phone_number,
 	        email = cust_email, balance = cust_balance,
-		membership_type_id = cust_membership_ship_id
+		membership_type_id = cust_membership_type_id
 	    WHERE id = cust_id;
 		    
 	    SET error_code = 0; -- update success
