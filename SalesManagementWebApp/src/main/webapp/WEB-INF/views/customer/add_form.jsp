@@ -14,6 +14,7 @@
         <title>Add new customer</title>
     </head>
     <body>
+        <h1>Add new Customer:</h1>
         <form action="add" method="POST">
             <input type="hidden" name="id" value="0">
             <label>Name: <input type="text" name="name"></label><br>

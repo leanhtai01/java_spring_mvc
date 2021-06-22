@@ -12,7 +12,7 @@
         <title>Add successfully!</title>
     </head>
     <body>
-        <h1>Add successfully!</h1>
+        <h1>Add new Customer successfully!</h1>
         <h2>The Customer's information is:</h2>
         <ul>
             <li>Name: ${customer.name}</li>

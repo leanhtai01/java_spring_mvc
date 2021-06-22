@@ -75,6 +75,12 @@ public class CustomerController {
         return "customer/add_success";
     }
     
+    // display update success page
+    @RequestMapping(value = "update_success", method = RequestMethod.GET)
+    public String displayUpdateSuccess() {
+        return "customer/update_success";
+    }
+    
     // process add new Customer
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAdd(Customer customer, RedirectAttributes model) {
@@ -83,5 +89,28 @@ public class CustomerController {
         model.addFlashAttribute(customer);
         
         return "redirect:/customer/add_success";
+    }
+    
+    // display update form
+    @RequestMapping(value = "update_form", method = RequestMethod.GET)
+    public String displayUpdateForm(@RequestParam int id, Model model) {
+        List<MembershipType> membershipTypeList = membershipTypeRepository
+                .getList();
+        Customer customer = customerRepository.getCustomer(id);
+        
+        model.addAttribute(membershipTypeList);
+        model.addAttribute(customer);
+        
+        return "customer/update_form";
+    }
+    
+    // process update Customer
+    @RequestMapping(value = "update", method = RequestMethod.POST)
+    public String processUpdate(Customer customer, RedirectAttributes model) {
+        // update customer
+        
+        model.addFlashAttribute(customer);
+        
+        return "redirect:/customer/update_success";
     }
 } // end class CustomerController

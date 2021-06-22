@@ -79,8 +79,7 @@ public class JdbcCustomerRepository implements ICustomerRepository {
                             rs.getString("phone_number"),
                             rs.getString("email"),
                             rs.getBigDecimal("balance"),
-                            rs.getInt("membership_type_id"),
-                            rs.getString("membership_type")
+                            rs.getInt("membership_type_id")
                     );
                 }, id);
     }
