@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.context.annotation.RequestScope;
 
 @Configuration
 public class DataConfig {
@@ -33,6 +34,7 @@ public class DataConfig {
     }
     
     @Bean
+    @RequestScope // one instance for each request (stored proc/function call)
     public SimpleJdbcCall simpleJdbcCall(JdbcOperations jdbcOperations) {
         return new SimpleJdbcCall(jdbcOperations(dataSource()));
     }
