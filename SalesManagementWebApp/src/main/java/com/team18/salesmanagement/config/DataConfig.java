@@ -29,13 +29,13 @@ public class DataConfig {
     }
     
     @Bean
-    public JdbcTemplate jdbcOperations(DataSource dataSource) {
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
     
     @Bean
     @RequestScope // one instance for each request (stored proc/function call)
-    public SimpleJdbcCall simpleJdbcCall(JdbcOperations jdbcOperations) {
-        return new SimpleJdbcCall(jdbcOperations(dataSource()));
+    public SimpleJdbcCall simpleJdbcCall(JdbcTemplate jdbcTemplate) {
+        return new SimpleJdbcCall(jdbcTemplate);
     }
 }
