@@ -261,14 +261,21 @@ BEGIN
 	THEN
 	    SET error_code = 2; -- email already exists
 	ELSE
-	    -- update the Customer
-	    UPDATE customers
-	    SET name = cust_name, phone_number = cust_phone_number,
-	        email = cust_email, balance = cust_balance,
-		membership_type_id = cust_membership_type_id
-	    WHERE id = cust_id;
-		    
-	    SET error_code = 0; -- update success
+	    IF ((SELECT COUNT(*)
+	         FROM customers
+		 WHERE id = cust_id) > 0)
+	    THEN
+	        -- update the Customer
+		UPDATE customers
+		SET name = cust_name, phone_number = cust_phone_number,
+		    email = cust_email, balance = cust_balance,
+		    membership_type_id = cust_membership_type_id
+		WHERE id = cust_id;
+
+		SET error_code = 0; -- update success
+	    ELSE
+	        SET error_code = 3; -- customer not exists
+	    END IF;
 	END IF;
     END IF;
 END $$

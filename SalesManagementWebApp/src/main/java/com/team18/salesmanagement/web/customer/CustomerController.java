@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.team18.salesmanagement.data.customer.ICustomerRepository;
+import com.team18.salesmanagement.data.customer.NotExistsCustomerException;
 import com.team18.salesmanagement.data.membershiptype.IMembershipTypeRepository;
 import com.team18.salesmanagement.domain.membershiptype.MembershipType;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -137,6 +138,9 @@ public class CustomerController {
             model.addAttribute("email", customer.getEmail());
             
             return "error/duplicate_email";
+        }
+        catch (NotExistsCustomerException e) {
+            return "error/not_exists_customer";
         }
     }
 } // end class CustomerController

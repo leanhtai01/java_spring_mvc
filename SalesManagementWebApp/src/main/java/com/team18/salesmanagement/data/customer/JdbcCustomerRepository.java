@@ -129,11 +129,15 @@ public class JdbcCustomerRepository implements ICustomerRepository {
                 .execute(params);
         error_code = (int) result.get("error_code");
         
-        if (error_code == 1) {
-            throw new DuplicatePhoneNumberException();
-        }
-        else if (error_code == 2) {
-            throw new DuplicateEmailException();
+        switch (error_code) {
+            case 1:
+                throw new DuplicatePhoneNumberException();
+            case 2:
+                throw new DuplicateEmailException();
+            case 3:
+                throw new NotExistsCustomerException();
+            default:
+                break;
         }
     }
 } // end class JdbcCustomerRepository
