@@ -87,7 +87,7 @@ public class CustomerController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAdd(Customer customer, RedirectAttributes model) {
         try {
-            // insert customer
+            customerRepository.insert(customer);
             
             model.addFlashAttribute(customer);
         
@@ -122,7 +122,7 @@ public class CustomerController {
     @RequestMapping(value = "update", method = RequestMethod.POST)
     public String processUpdate(Customer customer, RedirectAttributes model) {
         try {
-            // update customer
+            customerRepository.update(customer);
         
             model.addFlashAttribute(customer);
         
