@@ -1,0 +1,22 @@
+Product purchase
+- identify customer by phone number
+- build order
+- payment (save order, order details)
+
+deposit
+- given customer id
+- let user deposit
+- customer's information (name, phone number)
+- deposit date
+- amount of deposit
+- balance before and after discount
+
+sales history: display sales history
+
+export invoice
+- order id
+- order date
+- product list (include quantity, discount)
+- price before and after discount
+- Total price
+- Discount (PERCENT, CURRENCY) is per product
