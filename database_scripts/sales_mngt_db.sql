@@ -177,6 +177,26 @@ VALUES (1, 10, 'PERCENT', '2021-06-11', '2021-07-25'),
        (3, 0, 'PERCENT', '2021-06-11', '2021-07-25'),
        (4, 20000, 'FLAT_CURRENCY', '2021-06-11', '2021-07-25');
 
+-- insert data into table orders
+INSERT INTO orders(customer_id, order_date, discount_value, discount_unit)
+VALUES (1, '2019-05-04', 0, 'FLAT_CURRENCY'),
+       (2, '2020-12-12', 10, 'PERCENT'),
+       (3, '2021-01-03', 1000000, 'FLAT_CURRENCY'),
+       (4, '2018-12-25', 15, 'PERCENT');
+
+-- insert data into table order_details
+INSERT INTO order_details(order_id, product_id, quantity, discount_value,
+                          discount_unit)
+VALUES (1, 1, 1, 10, 'PERCENT'),
+       (1, 2, 4, 100000, 'FLAT_CURRENCY'),
+       (1, 3, 2, 0, 'PERCENT'),
+       (1, 4, 7, 20000, 'FLAT_CURRENCY'),
+       (2, 1, 1, 10, 'PERCENT'),
+       (2, 4, 1, 20000, 'FLAT_CURRENCY'),
+       (3, 2, 10, 100000, 'FLAT_CURRENCY'),
+       (4, 3, 5, 0, 'PERCENT'),
+       (4, 2, 3, 100000, 'FLAT_CURRENCY');
+
 -- create stored procedure get Customer's detail
 DELIMITER $$
 
