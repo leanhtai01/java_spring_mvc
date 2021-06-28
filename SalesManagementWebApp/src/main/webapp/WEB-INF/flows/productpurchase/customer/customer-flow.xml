@@ -4,6 +4,7 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd">
     <var name="customer" class="com.team18.salesmanagement.domain.customer.Customer"/>
+    <input name="order" required="true"/>
     
     <!-- phone number collect form -->
     <view-state id="phoneNumberCollectForm">
@@ -12,7 +13,7 @@
     
     <!-- search customer by phone number -->
     <action-state id="searchCustomer">
-        <evaluate result="flowScope.customerId" expression="jdbcCustomerRepository.getId(requestParameters.phoneNumber)"/>
+        <evaluate result="order.customerId" expression="jdbcCustomerRepository.getId(requestParameters.phoneNumber)"/>
         <transition to="addCustomerForm" on-exception="com.team18.salesmanagement.data.customer.CustomerNotFoundException"/>
         <transition to="customerReady"/>
     </action-state>
@@ -23,14 +24,12 @@
     </view-state>
     
     <action-state id="addCustomer">
-        <evaluate result="flowScope.customerId" expression="jdbcCustomerRepository.insert(customer)"/>
+        <evaluate result="order.customerId" expression="jdbcCustomerRepository.insert(customer)"/>
         <transition to="customerReady"/>
     </action-state>
     
     <end-state id="cancel"/>
-    <end-state id="customerReady">
-        <output name="customerId"/>
-    </end-state>
+    <end-state id="customerReady"/>
     
     <global-transitions>
         <transition on="cancel" to="cancel"/>
