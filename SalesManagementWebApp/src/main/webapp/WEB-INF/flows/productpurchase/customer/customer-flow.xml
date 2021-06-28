@@ -13,7 +13,7 @@
     
     <!-- search customer by phone number -->
     <action-state id="searchCustomer">
-        <evaluate result="order.customerId" expression="jdbcCustomerRepository.getId(requestParameters.phoneNumber)"/>
+        <evaluate result="order.customer" expression="jdbcCustomerRepository.getCustomer(requestParameters.phoneNumber)"/>
         <transition to="getMembershipTypeList" on-exception="com.team18.salesmanagement.data.customer.CustomerNotFoundException"/>
         <transition to="customerReady"/>
     </action-state>
@@ -30,7 +30,13 @@
     </view-state>
     
     <action-state id="addCustomer">
-        <evaluate result="order.customerId" expression="jdbcCustomerRepository.insert(customerAndMembershipTypeList.customer)"/>
+        <evaluate result="order.customer.id" expression="jdbcCustomerRepository.insert(customerAndMembershipTypeList.customer)"/>
+        <transition to="addNewCustomerToOrder"/>
+    </action-state>
+    
+    <!-- add new customer to order -->
+    <action-state id="addNewCustomerToOrder">
+        <evaluate result="order.customer" expression="jdbcCustomerRepository.getCustomer(order.customer.id)"/>
         <transition to="customerReady"/>
     </action-state>
     

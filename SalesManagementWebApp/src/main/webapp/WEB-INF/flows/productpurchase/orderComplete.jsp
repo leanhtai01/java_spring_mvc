@@ -12,7 +12,13 @@
         <title>Order Complete!</title>
     </head>
     <body>
-        <h2>The order is complete successfully! ${order.customerId}</h2>
+        <h2>The order is complete successfully!</h2>
+        <ul>
+            <li>${order.customer.id}</li>
+            <li>${order.customer.name}</li>
+            <li>${order.customer.phoneNumber}</li>
+            <li>${order.customer.membershipType}</li>
+        </ul>
         <a href='${flowExecutionUrl}&_eventId=finished'>Finish</a>
     </body>
 </html>

@@ -325,3 +325,55 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure get a Customer by phone number
+DELIMITER $$
+
+CREATE PROCEDURE get_customer(IN cust_phone_number VARCHAR(50),
+                              OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE phone_number = cust_phone_number) > 0)
+    THEN
+	SET error_code = 0; -- customer found
+    ELSE
+        SET error_code = 1; -- customer not found
+    END IF;
+
+    SELECT c.id, c.name, c.phone_number, c.email, c.balance,
+	   c.membership_type_id,
+	   (SELECT mst.membership_type
+	    FROM membership_types mst
+            WHERE mst.id = c.membership_type_id) AS membership_type
+    FROM customers c
+    WHERE c.phone_number = cust_phone_number;
+END $$
+
+DELIMITER ;
+
+-- create stored procedure get a Customer by id
+DELIMITER $$
+
+CREATE PROCEDURE get_customer_by_id(IN cust_id INT,
+                                    OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE id = cust_id) > 0)
+    THEN
+	SET error_code = 0; -- customer found
+    ELSE
+        SET error_code = 1; -- customer not found
+    END IF;
+
+    SELECT c.id, c.name, c.phone_number, c.email, c.balance,
+	   c.membership_type_id,
+	   (SELECT mst.membership_type
+	    FROM membership_types mst
+            WHERE mst.id = c.membership_type_id) AS membership_type
+    FROM customers c
+    WHERE c.id = cust_id;
+END $$
+
+DELIMITER ;
