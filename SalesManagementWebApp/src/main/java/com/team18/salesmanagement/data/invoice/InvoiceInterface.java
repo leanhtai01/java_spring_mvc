@@ -1,0 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.team18.salesmanagement.data.invoice;
+
+import com.team18.salesmanagement.domain.invoice.Invoice;
+import org.springframework.stereotype.Repository;
+
+/**
+ *
+ * @author HuuDepTrai
+ */
+@Repository
+public interface InvoiceInterface {
+    Invoice getInvoiceById(Integer order_id);
+}
