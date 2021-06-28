@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+    <var name="customer" class="com.team18.salesmanagement.domain.customer.Customer"/>
+    
+    <!-- phone number collect form -->
+    <view-state id="phoneNumberCollectForm">
+        <transition on="phoneEntered" to="searchCustomer"/>
+    </view-state>
+    
+    <!-- search customer by phone number -->
+    <action-state id="searchCustomer">
+        <evaluate result="flowScope.customerId" expression="jdbcCustomerRepository.getId(requestParameters.phoneNumber)"/>
+        <transition to="addCustomerForm" on-exception="com.team18.salesmanagement.data.customer.CustomerNotFoundException"/>
+        <transition to="customerReady"/>
+    </action-state>
+    
+    <!-- display add customer form -->
+    <view-state id="addCustomerForm" model="customer">
+        <transition on="submit" to="addCustomer"/>
+    </view-state>
+    
+    <action-state id="addCustomer">
+        <evaluate result="customerId" expression="jdbcCustomerRepository.insert(customer)"/>
+        <transition to="customerReady"/>
+    </action-state>
+    
+    <end-state id="cancel"/>
+    <end-state id="customerReady">
+        <output name="customerId"/>
+    </end-state>
+    
+    <global-transitions>
+        <transition on="cancel" to="cancel"/>
+    </global-transitions>
+</flow>

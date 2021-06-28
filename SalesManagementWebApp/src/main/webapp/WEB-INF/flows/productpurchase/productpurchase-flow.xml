@@ -3,5 +3,22 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd">
-
+    <var name="order" class="com.team18.salesmanagement.domain.order.Order"/>
+    
+    <!-- identify Customer -->
+    <subflow-state id="identifyCustomer" subflow="productpurchase/customer">
+        <output name="customerId" value="order.customerId"/>
+        <transition on="customerReady" to="orderComplete"/>
+    </subflow-state>
+    
+    <view-state id="orderComplete" model="order">
+        <transition to="endState"/>
+    </view-state>
+    
+    <end-state id="endState"/>
+    
+    <!-- Global cancel transition -->
+    <global-transitions>
+        <transition on="cancel" to="endState"/>
+    </global-transitions>
 </flow>

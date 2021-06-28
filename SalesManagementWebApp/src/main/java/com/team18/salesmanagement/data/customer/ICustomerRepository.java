@@ -14,4 +14,5 @@ public interface ICustomerRepository {
     Customer getCustomer(int id);
     void insert(Customer customer);
     void update(Customer customer);
+    Integer getId(String phoneNumber);
 }

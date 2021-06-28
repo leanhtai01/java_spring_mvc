@@ -140,4 +140,27 @@ public class JdbcCustomerRepository implements ICustomerRepository {
                 break;
         }
     }
+    
+    // get Customer id given phone number
+    @Override
+    public Integer getId(String phoneNumber) {
+        Map<String, Object> params = new HashMap<>();
+        int error_code = 0;
+        Integer id = -1;
+        
+        params.put("cust_phone_number", phoneNumber);
+        params.put("cust_id", id);
+        params.put("error_code", error_code);
+        
+        Map<String, Object> result = simpleJdbcCall
+                .withProcedureName("get_customer_id")
+                .execute(params);
+        error_code = (int) result.get("error_code");
+        
+        if (error_code == 1) {
+            throw new CustomerNotFoundException();
+        }
+        
+        return (Integer) result.get("cust_id");
+    }
 } // end class JdbcCustomerRepository

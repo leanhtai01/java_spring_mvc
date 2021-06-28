@@ -301,3 +301,25 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure get Customer's id
+DELIMITER $$
+
+CREATE PROCEDURE get_customer_id(IN cust_phone_number VARCHAR(50),
+                                 OUT cust_id INT,
+				 OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE phone_number = cust_phone_number) > 0)
+    THEN
+        SET cust_id = (SELECT id
+	               FROM customers
+		       WHERE phone_number = cust_phone_number);
+	SET error_code = 0; -- customer found
+    ELSE
+        SET error_code = 1; -- customer not found
+    END IF;
+END $$
+
+DELIMITER ;
