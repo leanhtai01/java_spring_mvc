@@ -15,15 +15,21 @@
     </head>
     <body>
         <h2>Add new customer</h2>
-        <sf:form modelAttribute="customer">
+        <sf:form modelAttribute="customerAndMembershipTypeList">
             <input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}"/>
-            <sf:input type="hidden" path="id"/>
-            <label>Name: <sf:input type="text" path="name"/></label><br>
-            <label>Phone number: <sf:input type="text" path="phoneNumber"/></label><br>
-            <label>Email: <sf:input type="email" path="email"/></label><br>
-            <label>Balance: <sf:input type="text" path="balance"/></label><br>
-            <sf:input type="hidden" path="membershipTypeId" value="1"/>
-            <sf:input type="hidden" path="membershipType" value="garbage"/>
+            <sf:input type="hidden" path="customer.id"/>
+            <label>Name: <sf:input type="text" path="customer.name"/></label><br>
+            <label>Phone number: <sf:input type="text" path="customer.phoneNumber"/></label><br>
+            <label>Email: <sf:input type="email" path="customer.email"/></label><br>
+            <label>Balance: <sf:input type="text" path="customer.balance"/></label><br>
+            <label>Membership:
+                <sf:select path="customer.membershipTypeId">
+                    <c:forEach var="mt" items="${customerAndMembershipTypeList.membershipTypes}">
+                        <option value="${mt.id}">${mt.membershipType}</option>
+                    </c:forEach>
+                </sf:select>
+            </label><br>
+            <sf:input type="hidden" path="customer.membershipType" value="garbage"/>
             <input type="submit" name="_eventId_submit" value="Add">
             <input type="submit" name="_eventId_cancel" value="cancel"/>
         </sf:form>
