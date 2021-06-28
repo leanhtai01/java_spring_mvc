@@ -23,7 +23,7 @@
     </view-state>
     
     <action-state id="addCustomer">
-        <evaluate result="customerId" expression="jdbcCustomerRepository.insert(customer)"/>
+        <evaluate result="flowScope.customerId" expression="jdbcCustomerRepository.insert(customer)"/>
         <transition to="customerReady"/>
     </action-state>
     

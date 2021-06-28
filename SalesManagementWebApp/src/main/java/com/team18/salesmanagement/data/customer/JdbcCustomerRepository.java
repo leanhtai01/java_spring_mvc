@@ -86,15 +86,17 @@ public class JdbcCustomerRepository implements ICustomerRepository {
     
     // insert a Customer
     @Override
-    public void insert(Customer customer) {
+    public Integer insert(Customer customer) {
         Map<String, Object> params = new HashMap<>();
         int error_code = 0;
+        Integer cust_id = -1;
         
         params.put("cust_name", customer.getName());
         params.put("cust_phone_number", customer.getPhoneNumber());
         params.put("cust_email", customer.getEmail());
         params.put("cust_balance", customer.getBalance());
         params.put("cust_membership_type_id", customer.getMembershipTypeId());
+        params.put("cust_id", cust_id);
         params.put("error_code", error_code);
         
         Map<String, Object> result = simpleJdbcCall
@@ -108,6 +110,8 @@ public class JdbcCustomerRepository implements ICustomerRepository {
         else if (error_code == 2) {
             throw new DuplicateEmailException();
         }
+        
+        return (Integer) result.get("cust_id");
     }
     
     // update a Customer

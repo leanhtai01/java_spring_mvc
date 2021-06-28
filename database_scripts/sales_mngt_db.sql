@@ -231,6 +231,7 @@ CREATE PROCEDURE insert_customer(IN cust_name VARCHAR(50),
 				 IN cust_email VARCHAR(50),
 				 IN cust_balance DECIMAL(13, 4),
 				 IN cust_membership_type_id INT,
+				 OUT cust_id INT,
 				 OUT error_code INT)
 BEGIN
     IF ((SELECT COUNT(*)
@@ -250,7 +251,8 @@ BEGIN
 	                          membership_type_id)
 	    VALUES (cust_name, cust_phone_number, cust_email, cust_balance,
 	            cust_membership_type_id);
-		    
+
+            SET cust_id = (SELECT LAST_INSERT_ID());
 	    SET error_code = 0; -- insert success
 	END IF;
     END IF;
