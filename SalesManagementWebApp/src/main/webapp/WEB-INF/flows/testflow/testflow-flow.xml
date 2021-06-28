@@ -11,4 +11,10 @@
     <view-state id="firststate"/>
     
     <view-state id="secondstate"/>
+    
+    <end-state id="endState"/>
+    
+    <global-transitions>
+        <transition on="finish" to="endState"/>
+    </global-transitions>
 </flow>
