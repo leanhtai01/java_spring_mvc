@@ -31,8 +31,20 @@
     
     <action-state id="addCustomer">
         <evaluate result="order.customer.id" expression="jdbcCustomerRepository.insert(customerAndMembershipTypeList.customer)"/>
+        <transition to="errorDuplicatePhoneNumber" on-exception="com.team18.salesmanagement.data.customer.DuplicatePhoneNumberException"/>
+        <transition to="errorDuplicateEmail" on-exception="com.team18.salesmanagement.data.customer.DuplicateEmailException"/>
         <transition to="addNewCustomerToOrder"/>
     </action-state>
+    
+    <!-- display duplicate phone number error -->
+    <view-state id="errorDuplicatePhoneNumber">
+        <transition on="tryagain" to="addCustomerForm"/>
+    </view-state>
+    
+    <!-- display duplicate email error -->
+    <view-state id="errorDuplicateEmail">
+        <transition on="tryagain" to="addCustomerForm"/>
+    </view-state>
     
     <!-- add new customer to order -->
     <action-state id="addNewCustomerToOrder">
