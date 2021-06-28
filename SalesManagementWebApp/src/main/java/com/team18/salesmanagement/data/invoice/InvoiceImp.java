@@ -5,6 +5,7 @@
  */
 package com.team18.salesmanagement.data.invoice;
 
+import com.team18.salesmanagement.data.customer.ICustomerRepository;
 import com.team18.salesmanagement.data.product.IProductRepository;
 import com.team18.salesmanagement.domain.invoice.DiscountUnit;
 import com.team18.salesmanagement.domain.invoice.Invoice;
@@ -25,7 +26,7 @@ import org.springframework.stereotype.Repository;
 public class InvoiceImp implements InvoiceInterface{
     
     @Autowired
-    IProductRepository iProductRepository;
+    ICustomerRepository customerRepository;
     private final JdbcOperations jdbcOperations;
     
     @Autowired
@@ -48,6 +49,7 @@ public class InvoiceImp implements InvoiceInterface{
                     );
                 });
         result.setOrderDetail(getOrderDetailByOrderId(order_id));
+        result.setCustomer(customerRepository.getCustomer(result.getCustomer_id()));
         return result;
     }
     

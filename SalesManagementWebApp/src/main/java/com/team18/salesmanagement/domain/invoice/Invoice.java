@@ -5,6 +5,7 @@
  */
 package com.team18.salesmanagement.domain.invoice;
 
+import com.team18.salesmanagement.domain.customer.Customer;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +22,7 @@ public class Invoice implements Serializable{
     private Date order_date;
     private Double discount_value;
     private DiscountUnit discount_unit;
+    private Customer customer;
     private List<OrderDetail> orderDetail = new ArrayList<>();
 
     public Invoice(Integer id, Integer customer_id, Date order_date, Double discount_value, DiscountUnit discount_unit) {
@@ -80,6 +82,14 @@ public class Invoice implements Serializable{
 
     public void setOrderDetail(List<OrderDetail> orderDetail) {
         this.orderDetail = orderDetail;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
     
 }
