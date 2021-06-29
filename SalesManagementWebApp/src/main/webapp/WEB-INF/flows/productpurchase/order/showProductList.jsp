@@ -16,7 +16,7 @@
     <body>
         <h2>Product List</h2>
         <sf:form action="${flowExecutionUrl}" method="post" modelAttribute="productDetailAndProductList">
-            <sf:select path="productDetail.id">
+            Product: <sf:select path="productDetail.id">
                 <c:forEach var="product" items="${productDetailAndProductList.products}">
                     <option value="${product.id}">${product.name} - ${product.weight} - ${product.price}</option>
                 </c:forEach>
@@ -24,11 +24,11 @@
             <sf:hidden path="productDetail.name" value="garbageName"/>
             <sf:hidden path="productDetail.weight" value="0"/>
             <sf:hidden path="productDetail.price" value="0"/>
-            <sf:input path="productDetail.quantity"/>
+            <br>Quantity: <sf:input path="productDetail.quantity"/>
             <sf:hidden path="productDetail.productDiscountId" value="0"/>
             <sf:hidden path="productDetail.discountValue" value="0"/>
             <sf:hidden path="productDetail.discountUnit" value="PERCENT"/>
-            <input type="submit" name="_eventId_add" value="Add"/>
+            <br><input type="submit" name="_eventId_add" value="Add"/>
             <input type="submit" name="_eventId_cancel" value="Cancel"/>
         </sf:form>
 </body>
