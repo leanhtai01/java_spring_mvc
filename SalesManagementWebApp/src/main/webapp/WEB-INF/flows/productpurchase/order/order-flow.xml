@@ -21,9 +21,15 @@
     
     <!-- show product list -->
     <view-state id="showProductList" model="productDetailAndProductList">
-        <transition on="add" to="showOrder"/>
+        <transition on="add" to="addProduct"/>
         <transition on="cancel" to="showOrder"/>
     </view-state>
+    
+    <!-- add product -->
+    <action-state id="addProduct">
+        <evaluate expression="order.addProductDetail(productDetailAndProductList.productDetail)"/>
+        <transition to="showOrder"/>
+    </action-state>
     
 <!--     add Product to Order 
     <view-state id="addProduct" model="flowScope.productDetail">
