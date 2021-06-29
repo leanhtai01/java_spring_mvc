@@ -13,12 +13,12 @@
     </view-state>
     
     <!-- add Product to Order -->
-    <view-state id="addProduct" model="flowScope.product">
+    <view-state id="addProduct" model="flowScope.productDetail">
         <on-entry>
-            <set name="flowScope.product" value="new com.team18.salesmanagement.domain.productpurchase.Product()"/>
+            <set name="flowScope.product" value="new com.team18.salesmanagement.domain.productpurchase.ProductDetail()"/>
         </on-entry>
         <transition on="addProduct" to="showOrder">
-            <evaluate expression="order.addProduct(flowScope.product)"/>
+            <evaluate expression="order.addProductDetail(flowScope.productDetail)"/>
         </transition>
         <transition on="cancel" to="showOrder"/>
     </view-state>

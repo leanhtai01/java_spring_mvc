@@ -24,13 +24,13 @@
         <b>${order.customer.membershipType}</b><br>
         
         <h3>Products:</h3>
-        <c:if test="${fn:length(order.products) eq 0}">
+        <c:if test="${fn:length(order.productDetails) eq 0}">
             <b>No products in this order!</b>
         </c:if>
         
         <sf:form action="${flowExecutionUrl}" method="post">
             <input type="submit" name="_eventId_addProduct" value="Add Product"/>
-            <c:if test="${fn:length(order.products) gt 0}">
+            <c:if test="${fn:length(order.productDetails) gt 0}">
                 <input type="submit" name="_eventId_checkout" value="Checkout"/>
             </c:if>
             <input type="submit" name="_eventId_cancel" value="Cancel"/>

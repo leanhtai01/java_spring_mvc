@@ -1,5 +1,5 @@
 // File: Order.java
-// Class Order represent an Order in Product Purchase
+// Class Order represent an Order in ProductDetail Purchase
 // Author: 1760169 - Le Anh Tai
 // Email: leanhtai01@gmail.com
 // GitHub: https://github.com/leanhtai01
@@ -17,10 +17,10 @@ public class Order implements Serializable {
     private LocalDate orderDate;
     private BigDecimal discountValue;
     private String discountUnit;
-    private List<Product> products;
+    private List<ProductDetail> productDetails;
     
-    public void addProduct(Product product) {
-        products.add(product);
+    public void addProductDetail(ProductDetail productDetail) {
+        productDetails.add(productDetail);
     }
 
     public Order() {
@@ -29,13 +29,13 @@ public class Order implements Serializable {
 
     public Order(Integer id, Customer customer, LocalDate orderDate,
             BigDecimal discountValue, String discountUnit,
-            List<Product> products) {
+            List<ProductDetail> productDetails) {
         this.id = id;
         this.customer = customer;
         this.orderDate = orderDate;
         this.discountValue = discountValue;
         this.discountUnit = discountUnit;
-        this.products = products;
+        this.productDetails = productDetails;
     }
 
     public Integer getId() {
@@ -78,11 +78,11 @@ public class Order implements Serializable {
         this.discountUnit = discountUnit;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<ProductDetail> getProductDetails() {
+        return productDetails;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProductDetails(List<ProductDetail> productDetails) {
+        this.productDetails = productDetails;
     }
 }

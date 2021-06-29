@@ -1,5 +1,5 @@
-// File: Product.java
-// Class Product represent a Product in Order
+// File: ProductDetail.java
+// Class ProductDetail represent a ProductDetail in Order
 // Author: 1760169 - Le Anh Tai
 // Email: leanhtai01@gmail.com
 // GitHub: https://github.com/leanhtai01
@@ -8,7 +8,7 @@ package com.team18.salesmanagement.domain.productpurchase;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Product implements Serializable {
+public class ProductDetail implements Serializable {
     private Integer id;
     private String name;
     private Double weight;
@@ -18,10 +18,10 @@ public class Product implements Serializable {
     private BigDecimal discountValue;
     private String discountUnit;
 
-    public Product() {
+    public ProductDetail() {
     }
 
-    public Product(Integer id, String name, Double weight, BigDecimal price,
+    public ProductDetail(Integer id, String name, Double weight, BigDecimal price,
             Integer quantity, Integer productDiscountId,
             BigDecimal discountValue, String discountUnit) {
         this.id = id;
