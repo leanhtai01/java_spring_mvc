@@ -21,13 +21,24 @@
     
     <!-- show product list -->
     <view-state id="showProductList" model="productDetailAndProductList">
-        <transition on="add" to="addProduct"/>
+        <transition on="add" to="getProductDetail"/>
         <transition on="cancel" to="showOrder"/>
     </view-state>
     
+    <!-- get product detail -->
+    <action-state id="getProductDetail">
+        <on-entry>
+            <set name="flowScope.productDetail" value="new com.team18.salesmanagement.domain.productpurchase.ProductDetail()"/>
+        </on-entry>
+        <evaluate result="productDetail" expression="productRepositoryIml.getProductDetailById(productDetailAndProductList.productDetail.id)"/>
+        <transition to="addProduct">
+            <evaluate result="productDetail.quantity" expression="productDetailAndProductList.productDetail.quantity"/>
+        </transition>
+    </action-state>
+    
     <!-- add product -->
-    <action-state id="addProduct">
-        <evaluate expression="order.addProductDetail(productDetailAndProductList.productDetail)"/>
+    <action-state id="addProduct">    
+        <evaluate expression="order.addProductDetail(productDetail)"/>
         <transition to="showOrder"/>
     </action-state>
     

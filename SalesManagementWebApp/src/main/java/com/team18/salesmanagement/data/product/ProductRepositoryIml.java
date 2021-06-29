@@ -6,6 +6,8 @@
 package com.team18.salesmanagement.data.product;
 
 import com.team18.salesmanagement.domain.product.Product;
+import com.team18.salesmanagement.domain.productpurchase.ProductDetail;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,5 +92,22 @@ public class ProductRepositoryIml implements IProductRepository{
                             rs.getDouble("price")
                     );
                 });
+    }
+    
+    @Override
+    public ProductDetail getProductDetailById(Integer id) {
+        Product product = getProductbyId(id);
+        ProductDetail productDetail = new ProductDetail(
+                product.getId(),
+                product.getName(),
+                product.getWeight(),
+                BigDecimal.valueOf(product.getPrice()),
+                0,
+                0,
+                BigDecimal.ZERO,
+                "PERCENT"
+        );
+        
+        return productDetail;
     }
 }

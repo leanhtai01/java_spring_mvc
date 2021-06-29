@@ -30,14 +30,18 @@
 
         <c:if test="${fn:length(order.productDetails) gt 0}">
             <table>
+                <th>id</th>
                 <th>name</th>
                 <th>weight</th>
                 <th>price</th>
-                    <c:forEach var="productDetail" items="${order.productDetails}">
+                <th>quantity</th>
+                <c:forEach var="productDetail" items="${order.productDetails}">
                     <tr>
+                        <td>${productDetail.id}</td>
                         <td>${productDetail.name}</td>
-                        <td>${productDetail.phoneNumber}</td>
-                        <td>${productDetail.email}</td>
+                        <td>${productDetail.weight}</td>
+                        <td>${productDetail.price}</td>
+                        <td>${productDetail.quantity}</td>
                     </tr>
                 </c:forEach>
             </table>

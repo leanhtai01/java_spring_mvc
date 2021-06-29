@@ -15,29 +15,21 @@
     </head>
     <body>
         <h2>Product List</h2>
-        <table>
-            <th>name</th>
-            <th>weight</th>
-            <th>price</th>
-            <th>quantity</th>
-            <c:forEach var="product" items="${productDetailAndProductList.products}">
-            <tr>
-                <sf:form modelAttribute="productDetailAndProductList.productDetail">
-                <input type="hidden" path="productDetail.id" value="product.id"/>
-                <input type="hidden" path="productDetail.productDiscountId" value="0"/>
-                <input type="hidden" path="productDetail.discountValue" value="0"/>
-                <input type="hidden" path="productDetail.discountUnit" value="PERCENT"/>
-                <td><input type="hidden" path="productDetail.name" value="product.name"/>${product.name}</td>
-                <td><input type="hidden" path="productDetail.weight" value="product.weight"/>${product.weight}</td>
-                <td><input type="hidden" path="productDetail.price" value="product.price"/>${product.price}</td>
-                <td><input type="text" path="productDetail.quantity"/></td>
-                <td><input type="submit" name="_eventId_add" value="Add"/></td>
-                </sf:form>
-            </tr>
-            </c:forEach>
-        </table>
-        <form action="${flowExecutionUrl}" method="post">
+        <sf:form action="${flowExecutionUrl}" method="post" modelAttribute="productDetailAndProductList">
+            <sf:select path="productDetail.id">
+                <c:forEach var="product" items="${productDetailAndProductList.products}">
+                    <option value="${product.id}">${product.name} - ${product.weight} - ${product.price}</option>
+                </c:forEach>
+            </sf:select>
+            <sf:hidden path="productDetail.name" value="garbageName"/>
+            <sf:hidden path="productDetail.weight" value="0"/>
+            <sf:hidden path="productDetail.price" value="0"/>
+            <sf:input path="productDetail.quantity"/>
+            <sf:hidden path="productDetail.productDiscountId" value="0"/>
+            <sf:hidden path="productDetail.discountValue" value="0"/>
+            <sf:hidden path="productDetail.discountUnit" value="PERCENT"/>
+            <input type="submit" name="_eventId_add" value="Add"/>
             <input type="submit" name="_eventId_cancel" value="Cancel"/>
-        </form>
-    </body>
+        </sf:form>
+</body>
 </html>

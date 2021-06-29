@@ -9,6 +9,7 @@ import com.team18.salesmanagement.domain.customer.Customer;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Order implements Serializable {
@@ -25,6 +26,7 @@ public class Order implements Serializable {
 
     public Order() {
         customer = new Customer();
+        productDetails = new ArrayList<>();
     }
 
     public Order(Integer id, Customer customer, LocalDate orderDate,

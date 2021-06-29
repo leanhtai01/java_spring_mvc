@@ -6,6 +6,7 @@
 package com.team18.salesmanagement.data.product;
 
 import com.team18.salesmanagement.domain.product.Product;
+import com.team18.salesmanagement.domain.productpurchase.ProductDetail;
 import java.util.List;
 
 /**
@@ -18,4 +19,5 @@ public interface IProductRepository {
     int saveProduct(Product product);
     int deleteProduct(Integer id);
     List<Product> getProductList();
+    ProductDetail getProductDetailById(Integer id);
 }
