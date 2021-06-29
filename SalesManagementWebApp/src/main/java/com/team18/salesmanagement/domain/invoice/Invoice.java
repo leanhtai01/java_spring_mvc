@@ -24,6 +24,11 @@ public class Invoice implements Serializable{
     private DiscountUnit discount_unit;
     private Customer customer;
     private List<OrderDetail> orderDetail = new ArrayList<>();
+    
+    private String discount_unit_display;
+    private Double priceDiscount;
+    private Double amount;
+    private Double subTotal;
 
     public Invoice(Integer id, Integer customer_id, Date order_date, Double discount_value, DiscountUnit discount_unit) {
         this.id = id;
@@ -90,6 +95,38 @@ public class Invoice implements Serializable{
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public String getDiscount_unit_display() {
+        return discount_unit_display;
+    }
+
+    public void setDiscount_unit_display(String discount_unit_display) {
+        this.discount_unit_display = discount_unit_display;
+    }
+
+    public Double getPriceDiscount() {
+        return priceDiscount;
+    }
+
+    public void setPriceDiscount(Double priceDiscount) {
+        this.priceDiscount = priceDiscount;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
     }
     
 }

@@ -22,6 +22,9 @@ public class OrderDetail implements Serializable{
     private DiscountUnit discount_unit;
     private Product product;
     
+    private String discount_unit_display;
+    private Double amount;
+    private Double priceOrigin;
     
     public Integer getOrder_id() {
         return order_id;
@@ -70,6 +73,31 @@ public class OrderDetail implements Serializable{
     public void setProduct(Product product) {
         this.product = product;
     }
+
+    public String getDiscount_unit_display() {
+        return discount_unit_display;
+    }
+
+    public void setDiscount_unit_display(String discount_unit_display) {
+        this.discount_unit_display = discount_unit_display;
+    }
+
+    public Double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+
+    public Double getPriceOrigin() {
+        return priceOrigin;
+    }
+
+    public void setPriceOrigin(Double priceOrigin) {
+        this.priceOrigin = priceOrigin;
+    }
     
     public OrderDetail() {
     }
@@ -82,5 +110,14 @@ public class OrderDetail implements Serializable{
         this.discount_value = discount_value;
         this.discount_unit = discount_unit;
         this.product =  new Product(id, name, weight, price);
+        // caculate price display
+        this.priceOrigin = (Double) (price * quantity);
+        if (discount_unit.equals(discount_unit.FLAT_CURRENCY)) {
+            this.discount_unit_display = "VND";
+            this.amount = this.priceOrigin - discount_value;
+        } else {
+            this.discount_unit_display = "%";
+            this.amount = this.priceOrigin - (this.priceOrigin * (discount_value/100.0d));
+        }
     }
 }

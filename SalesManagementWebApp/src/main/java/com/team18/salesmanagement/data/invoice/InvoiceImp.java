@@ -49,6 +49,20 @@ public class InvoiceImp implements InvoiceInterface{
                     );
                 });
         result.setOrderDetail(getOrderDetailByOrderId(order_id));
+        // caculate price
+        Double subTotal = result.getOrderDetail().stream().reduce(0.0, (subtotal, orderDetail) -> subtotal + orderDetail.getAmount(), Double::sum);
+        System.out.println(result.getDiscount_value());
+        System.out.println(subTotal - result.getDiscount_value());
+        if (result.getDiscount_unit().equals(result.getDiscount_unit().FLAT_CURRENCY)) {
+            result.setDiscount_unit_display("VND");
+            result.setPriceDiscount(result.getDiscount_value());
+        } else {
+            result.setDiscount_unit_display("%");
+            result.setPriceDiscount(subTotal * (result.getDiscount_value() / 100.0d));
+        }
+        result.setAmount(subTotal - result.getPriceDiscount());
+        result.setSubTotal(subTotal);
+        
         result.setCustomer(customerRepository.getCustomer(result.getCustomer_id()));
         return result;
     }

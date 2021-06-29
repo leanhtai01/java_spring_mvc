@@ -25,13 +25,77 @@
                 </div>
                 <div class="col-sm">
                     <h5><b>CUSTOMER</b></h5>
-                    <span>Customer: ${invoice.customer.name}</span>
-                    <span>Phone Number: ${invoice.customer.phoneNumber}</span>
-                    <span>Email: ${invoice.customer.email}</span>
+                    <div>Customer: ${invoice.customer.name}</div>
+                    <div>Phone Number: ${invoice.customer.phoneNumber}</div>
+                    <div>Email: ${invoice.customer.email}</div>
                 </div>
             </div>
         </section>
         
+                
+                <section id="second">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>NO</th>
+                                <th>PRODUCT NAME</th>
+                                <th>WEIGHT</th>
+                                <th>PRICE</th>
+                                <th>QUANTITY</th>
+                                <th>DISCOUNT</th>
+                                <th>AMOUNT</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <c:forEach var="detail" items="${invoice.orderDetail}" varStatus="loop">
+                                <tr>
+                                    <td>${loop.index + 1}</td>
+                                    <td>${detail.product.name}</td>
+                                    <td>${detail.product.weight}</td>
+                                    <td>${detail.product.price}</td>
+                                    <td>${detail.quantity}</td>
+                                    <td>
+                                        ${detail.discount_value} ${detail.discount_unit_display}</td>
+                                    <td>
+                                        <i><s>${detail.priceOrigin} VND</s></i>
+                                        <br>
+                                        ${detail.amount} VND
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td>
+                                        <b>
+                                            SUB TOTAL:
+                                        </b>
+                                    </td>
+                                    <td>${invoice.subTotal} VND</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td>
+                                        <b>
+                                            DISCOUNT:
+                                        </b>
+                                        <c:if test = "${invoice.discount_unit_display == '%'}">
+                                            <i>(${invoice.discount_value} ${invoice.discount_unit_display})</i>
+                                        </c:if>
+                                    </td>
+                                    <td>${invoice.priceDiscount} VND</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td>
+                                        <b>
+                                            TOTAL AMOUNT:
+                                        </b>
+                                    </td>
+                                    <td>${invoice.amount} VND</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </section>
         
     </body>
 </html>
