@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+    <input name="order" required="true"/>
+    
+    <!-- show Order -->
+    <view-state id="showOrder">
+        <transition on="addProduct" to="addProduct"/>
+        <transition on="checkout" to="orderCreated"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+    
+    <!-- add Product to Order -->
+    <view-state id="addProduct" model="flowScope.product">
+        <on-entry>
+            <set name="flowScope.product" value="new com.team18.salesmanagement.domain.productpurchase.Product()"/>
+        </on-entry>
+        <transition on="addProduct" to="showOrder">
+            <evaluate expression="order.addProduct(flowScope.product)"/>
+        </transition>
+        <transition on="cancel" to="showOrder"/>
+    </view-state>
+    
+    <end-state id="cancel"/>
+    <end-state id="orderCreated"/>
+</flow>

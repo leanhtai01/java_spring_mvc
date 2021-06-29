@@ -18,6 +18,10 @@ public class Order implements Serializable {
     private BigDecimal discountValue;
     private String discountUnit;
     private List<Product> products;
+    
+    public void addProduct(Product product) {
+        products.add(product);
+    }
 
     public Order() {
         customer = new Customer();
