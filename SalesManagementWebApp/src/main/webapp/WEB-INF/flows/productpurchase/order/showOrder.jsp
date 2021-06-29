@@ -22,12 +22,27 @@
         <b>${order.customer.phoneNumber}</b><br>
         <b>${order.customer.email}</b><br>
         <b>${order.customer.membershipType}</b><br>
-        
+
         <h3>Products:</h3>
         <c:if test="${fn:length(order.productDetails) eq 0}">
             <b>No products in this order!</b>
         </c:if>
-        
+
+        <c:if test="${fn:length(order.productDetails) gt 0}">
+            <table>
+                <th>name</th>
+                <th>weight</th>
+                <th>price</th>
+                    <c:forEach var="productDetail" items="${order.productDetails}">
+                    <tr>
+                        <td>${productDetail.name}</td>
+                        <td>${productDetail.phoneNumber}</td>
+                        <td>${productDetail.email}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
+
         <sf:form action="${flowExecutionUrl}" method="post">
             <input type="submit" name="_eventId_addProduct" value="Add Product"/>
             <c:if test="${fn:length(order.productDetails) gt 0}">
