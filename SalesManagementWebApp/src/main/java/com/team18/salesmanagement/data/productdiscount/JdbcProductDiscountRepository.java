@@ -6,6 +6,8 @@
 package com.team18.salesmanagement.data.productdiscount;
 
 import com.team18.salesmanagement.domain.productdiscount.ProductDiscount;
+import com.team18.salesmanagement.domain.productpurchase.ProductDiscount2;
+import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
@@ -80,5 +82,29 @@ public class JdbcProductDiscountRepository implements IProductDiscountRepository
         final String DELETE_DISCOUNT = String.format("DELETE FROM `product_discounts` WHERE `id` = \'%d\' ", id);
         
         jdbcOperations.execute(DELETE_DISCOUNT);
+    }
+    
+    // check whether product have discount
+    @Override
+    public boolean hasDiscounts(Integer productId) {
+        return true;
+    }
+    
+    // get discounts by given product id
+    public List<ProductDiscount2> getProductDiscounts(Integer productId) {
+        final String GET_DISCOUNTS = "SELECT * FROM product_discounts"
+                + " WHERE product_id = ?";
+        
+        return jdbcOperations.query(GET_DISCOUNTS,
+                (rs, rowNum) -> {
+                    return new ProductDiscount2(
+                            rs.getInt("id"),
+                            rs.getInt("product_id"),
+                            rs.getBigDecimal("discount_value"),
+                            rs.getString("discount_unit"),
+                            ((Date) rs.getDate("valid_from")).toLocalDate(),
+                            ((Date) rs.getDate("valid_until")).toLocalDate()
+                    );
+                }, productId);
     }
 }

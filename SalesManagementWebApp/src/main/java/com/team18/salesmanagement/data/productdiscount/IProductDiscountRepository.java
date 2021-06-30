@@ -18,4 +18,6 @@ public interface IProductDiscountRepository {
     void addProductDiscount(ProductDiscount product_discount);
     void updateProductDiscount(ProductDiscount product_discount);
     void deleteProductDiscount(Integer id);
+    boolean hasDiscounts(Integer productId);
+    List<ProductDiscount> getProductDiscounts(Integer productId);
 }
