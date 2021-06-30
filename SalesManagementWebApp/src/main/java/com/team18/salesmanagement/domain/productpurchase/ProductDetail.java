@@ -17,6 +17,37 @@ public class ProductDetail implements Serializable {
     private Integer productDiscountId;
     private BigDecimal discountValue;
     private String discountUnit;
+    
+    // get discount amount per product
+    public BigDecimal getDiscountAmountPerProduct() {
+        BigDecimal amount = BigDecimal.ZERO;
+        
+        if (discountUnit.equals("PERCENT")) {
+            amount = price
+                    .multiply(discountValue.divide(BigDecimal.valueOf(100)));
+        }
+        else if (discountUnit.equals("FLAT_CURRENCY")) {
+            amount = discountValue;
+        }
+        
+        return amount;
+    }
+    
+    // get discount price per product
+    public BigDecimal getDiscountPricePerProduct() {
+        return price.subtract(getDiscountAmountPerProduct());
+    }
+    
+    // get total original price
+    public BigDecimal getTotalOriginalPrice() {
+        return price.multiply(BigDecimal.valueOf(quantity));
+    }
+    
+    // get total discount price
+    public BigDecimal getTotalDiscountPrice() {
+        return getDiscountPricePerProduct()
+                .multiply(BigDecimal.valueOf(quantity));
+    }
 
     public ProductDetail() {
     }
