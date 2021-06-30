@@ -17,6 +17,17 @@ public class ProductDiscount2 implements Serializable {
     private String discountUnit;
     private LocalDate validFrom;
     private LocalDate validUntil;
+    
+    public boolean isValid() {
+        LocalDate currentDate = LocalDate.now();
+        
+        if (currentDate.compareTo(validFrom) >= 0
+                && currentDate.compareTo(validUntil) <= 0) {
+            return true;
+        }
+        
+        return false;
+    }
 
     public ProductDiscount2() {
     }
