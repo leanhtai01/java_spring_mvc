@@ -35,6 +35,9 @@
                 <th>weight</th>
                 <th>price</th>
                 <th>quantity</th>
+                <th>productDiscountId</th>
+                <th>discountValue</th>
+                <th>discountUnit</th>
                 <c:forEach var="productDetail" items="${order.productDetails}">
                     <tr>
                         <td>${productDetail.id}</td>
@@ -42,6 +45,9 @@
                         <td>${productDetail.weight}</td>
                         <td>${productDetail.price}</td>
                         <td>${productDetail.quantity}</td>
+                        <td>${productDetail.productDiscountId}</td>
+                        <td>${productDetail.discountValue}</td>
+                        <td>${productDetail.discountUnit}</td>
                     </tr>
                 </c:forEach>
             </table>

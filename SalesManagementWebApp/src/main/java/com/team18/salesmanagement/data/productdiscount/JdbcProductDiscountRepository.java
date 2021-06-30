@@ -7,6 +7,7 @@ package com.team18.salesmanagement.data.productdiscount;
 
 import com.team18.salesmanagement.domain.productdiscount.ProductDiscount;
 import com.team18.salesmanagement.domain.productpurchase.ProductDiscount2;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,5 +107,47 @@ public class JdbcProductDiscountRepository implements IProductDiscountRepository
                             ((Date) rs.getDate("valid_until")).toLocalDate()
                     );
                 }, productId);
+    }
+    
+    // get product discount value by given product discount id
+    @Override
+    public BigDecimal getProductDiscountValue(Integer id) {
+        final String GET_DISCOUNT = "SELECT * FROM product_discounts"
+                + " WHERE id = ?";
+        ProductDiscount2 productDiscount
+                = jdbcOperations.queryForObject(GET_DISCOUNT,
+                        (rs, rowNum) -> {
+                            return new ProductDiscount2(
+                                    rs.getInt("id"),
+                                    rs.getInt("product_id"),
+                                    rs.getBigDecimal("discount_value"),
+                                    rs.getString("discount_unit"),
+                                    ((Date) rs.getDate("valid_from")).toLocalDate(),
+                                    ((Date) rs.getDate("valid_until")).toLocalDate()
+                            );
+                        }, id);
+        
+        return productDiscount.getDiscountValue();
+    }
+    
+    // get product discount unit by given product discount id
+    @Override
+    public String getProductDiscountUnit(Integer id) {
+        final String GET_DISCOUNT = "SELECT * FROM product_discounts"
+                + " WHERE id = ?";
+        ProductDiscount2 productDiscount
+                = jdbcOperations.queryForObject(GET_DISCOUNT,
+                        (rs, rowNum) -> {
+                            return new ProductDiscount2(
+                                    rs.getInt("id"),
+                                    rs.getInt("product_id"),
+                                    rs.getBigDecimal("discount_value"),
+                                    rs.getString("discount_unit"),
+                                    ((Date) rs.getDate("valid_from")).toLocalDate(),
+                                    ((Date) rs.getDate("valid_until")).toLocalDate()
+                            );
+                        }, id);
+        
+        return productDiscount.getDiscountUnit();
     }
 }

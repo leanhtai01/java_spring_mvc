@@ -31,9 +31,46 @@
             <set name="flowScope.productDetail" value="new com.team18.salesmanagement.domain.productpurchase.ProductDetail()"/>
         </on-entry>
         <evaluate result="productDetail" expression="productRepositoryIml.getProductDetailById(productDetailAndProductList.productDetail.id)"/>
-        <transition to="addProduct">
+        <transition to="checkProductDiscount">
             <evaluate result="productDetail.quantity" expression="productDetailAndProductList.productDetail.quantity"/>
         </transition>
+    </action-state>
+    
+    <!-- check whether product have discount -->
+    <decision-state id="checkProductDiscount">
+        <if test="jdbcProductDiscountRepository.hasDiscounts(productDetail.id)"
+            then="getProductDiscount"
+            else="addProduct"/>
+    </decision-state>
+    
+    <!-- get product discounts -->
+    <action-state id="getProductDiscount">
+        <set name="flowScope.productDiscountList" value="jdbcProductDiscountRepository.getProductDiscounts(productDetail.id)"/>
+        <transition to="showProductDiscount"/>
+    </action-state>
+    
+    <!-- show product discounts -->
+    <view-state id="showProductDiscount" model="productDiscountList">
+        <transition on="add" to="getProductDiscountId"/>
+        <transition on="cancel" to="showOrder"/>
+    </view-state>
+    
+    <!-- get product discount id -->
+    <action-state id="getProductDiscountId">
+        <evaluate result="productDetail.productDiscountId" expression="requestParameters.productDiscountId"/>
+        <transition to="getProductDiscountValue"/>
+    </action-state>
+    
+    <!-- get product discount value -->
+    <action-state id="getProductDiscountValue">
+        <evaluate result="productDetail.discountValue" expression="jdbcProductDiscountRepository.getProductDiscountValue(productDetail.productDiscountId)"/>
+        <transition to="getProductDiscountUnit"/>
+    </action-state>
+    
+    <!-- get product discount unit -->
+    <action-state id="getProductDiscountUnit">
+        <evaluate result="productDetail.discountUnit" expression="jdbcProductDiscountRepository.getProductDiscountUnit(productDetail.productDiscountId)"/>
+        <transition to="addProduct"/>
     </action-state>
     
     <!-- add product -->
