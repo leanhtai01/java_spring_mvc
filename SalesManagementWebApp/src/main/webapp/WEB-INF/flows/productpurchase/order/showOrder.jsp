@@ -24,6 +24,7 @@
         <b>${order.customer.membershipType}</b><br>
         <b>Order discount value: ${order.discountValue}</b><br>
         <b>Order discount unit: ${order.discountUnit}</b><br>
+        <b>Debt limit: ${order.debtLimit}</b><br>
 
         <h3>Products:</h3>
         <c:if test="${fn:length(order.productDetails) eq 0}">

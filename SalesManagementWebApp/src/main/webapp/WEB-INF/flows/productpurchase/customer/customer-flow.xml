@@ -61,6 +61,12 @@
     <!-- get discount unit -->
     <action-state id="getDiscountUnit">
         <evaluate result="order.discountUnit" expression="jdbcMembershipTypeRepository.getDiscountUnit(order.customer.membershipTypeId)"/>
+        <transition to="getDebtLimit"/>
+    </action-state>
+    
+    <!-- get debt limit -->
+    <action-state id="getDebtLimit">
+        <evaluate result="order.debtLimit" expression="jdbcMembershipTypeRepository.getDebtLimit(order.customer.membershipTypeId)"/>
         <transition to="customerReady"/>
     </action-state>
     

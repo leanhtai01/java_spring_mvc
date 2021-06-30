@@ -16,6 +16,7 @@ public class Order implements Serializable {
     private Integer id;
     private Customer customer;
     private LocalDate orderDate;
+    private BigDecimal debtLimit;
     private BigDecimal discountValue;
     private String discountUnit;
     private List<ProductDetail> productDetails;
@@ -30,11 +31,13 @@ public class Order implements Serializable {
     }
 
     public Order(Integer id, Customer customer, LocalDate orderDate,
+            BigDecimal debtLimit,
             BigDecimal discountValue, String discountUnit,
             List<ProductDetail> productDetails) {
         this.id = id;
         this.customer = customer;
         this.orderDate = orderDate;
+        this.debtLimit = debtLimit;
         this.discountValue = discountValue;
         this.discountUnit = discountUnit;
         this.productDetails = productDetails;
@@ -62,6 +65,14 @@ public class Order implements Serializable {
 
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
+    }
+    
+    public BigDecimal getDebtLimit() {
+        return debtLimit;
+    }
+
+    public void setDebtLimit(BigDecimal debtLimit) {
+        this.debtLimit = debtLimit;
     }
 
     public BigDecimal getDiscountValue() {

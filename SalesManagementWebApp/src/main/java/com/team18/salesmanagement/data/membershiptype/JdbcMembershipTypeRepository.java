@@ -83,4 +83,27 @@ public class JdbcMembershipTypeRepository implements IMembershipTypeRepository {
         
         return membershipType.getDiscountUnit();
     }
+    
+    // get debt limit by given membership type id
+    @Override
+    public BigDecimal getDebtLimit(Integer id) {
+        final String GET_MEMBERSHIP_TYPE = "SELECT * FROM membership_types"
+                + " WHERE id = ?;";
+        
+        MembershipType membershipType = jdbcOperations
+                .queryForObject(GET_MEMBERSHIP_TYPE,
+                (rs, rowNum) -> {
+                    return new MembershipType(
+                            rs.getInt("id"),
+                            rs.getString("membership_type"),
+                            rs.getBigDecimal("debt_limit"),
+                            rs.getBigDecimal("discount_value"),
+                            rs.getString("discount_unit"),
+                            ((Date)rs.getObject("valid_from")).toLocalDate(),
+                            ((Date)rs.getObject("valid_until")).toLocalDate()
+                    );
+                }, id);
+        
+        return membershipType.getDebtLimit();
+    }
 } // end class JdbcMembershipTypeRepository
