@@ -6,6 +6,7 @@
 package com.team18.salesmanagement.data.productdiscount;
 
 import com.team18.salesmanagement.domain.productdiscount.ProductDiscount;
+import com.team18.salesmanagement.domain.productpurchase.ProductDiscount2;
 import java.util.List;
 
 /**
@@ -19,5 +20,5 @@ public interface IProductDiscountRepository {
     void updateProductDiscount(ProductDiscount product_discount);
     void deleteProductDiscount(Integer id);
     boolean hasDiscounts(Integer productId);
-    List<ProductDiscount> getProductDiscounts(Integer productId);
+    List<ProductDiscount2> getProductDiscounts(Integer productId);
 }
