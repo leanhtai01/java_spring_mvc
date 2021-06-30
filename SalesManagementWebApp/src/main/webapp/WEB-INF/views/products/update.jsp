@@ -60,7 +60,10 @@
                   <label for="exampleInputPrice">Price</label>
                   <input type="number" class="form-control" id="exampleInputPrice" placeholder="Enter Price" name="price" value="${product.price}">
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
+                <button type="submit" class="btn btn-primary">
+                    <c:if test = "${product.id == null}">Add</c:if>
+                    <c:if test = "${product.id != null}">Edit</c:if>
+                </button>
                 <button type="button" class="btn btn-secondary ml-4" onClick="back()">Back</button>
               </form>
         </section>
