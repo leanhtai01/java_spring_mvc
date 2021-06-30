@@ -4,8 +4,11 @@
 package com.team18.salesmanagement.data.membershiptype;
 
 import com.team18.salesmanagement.domain.membershiptype.MembershipType;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface IMembershipTypeRepository {
     List<MembershipType> getList();
+    BigDecimal getDiscountValue(int id);
+    String getDiscountUnit(int id);
 }

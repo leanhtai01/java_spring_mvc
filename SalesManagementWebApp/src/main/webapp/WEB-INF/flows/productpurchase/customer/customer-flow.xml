@@ -15,7 +15,7 @@
     <action-state id="searchCustomer">
         <evaluate result="order.customer" expression="jdbcCustomerRepository.getCustomer(requestParameters.phoneNumber)"/>
         <transition to="getMembershipTypeList" on-exception="com.team18.salesmanagement.data.customer.CustomerNotFoundException"/>
-        <transition to="customerReady"/>
+        <transition to="addNewCustomerToOrder"/>
     </action-state>
     
     <!-- get membership type list -->
@@ -49,6 +49,18 @@
     <!-- add new customer to order -->
     <action-state id="addNewCustomerToOrder">
         <evaluate result="order.customer" expression="jdbcCustomerRepository.getCustomer(order.customer.id)"/>
+        <transition to="getDiscountValue"/>
+    </action-state>
+    
+    <!-- get discount value -->
+    <action-state id="getDiscountValue">
+        <evaluate result="order.discountValue" expression="jdbcMembershipTypeRepository.getDiscountValue(order.customer.membershipTypeId)"/>
+        <transition to="getDiscountUnit"/>
+    </action-state>
+    
+    <!-- get discount unit -->
+    <action-state id="getDiscountUnit">
+        <evaluate result="order.discountUnit" expression="jdbcMembershipTypeRepository.getDiscountUnit(order.customer.membershipTypeId)"/>
         <transition to="customerReady"/>
     </action-state>
     
