@@ -58,7 +58,7 @@ public class JdbcMembershipTypeRepository implements IMembershipTypeRepository {
                     );
                 }, id);
         
-        return membershipType.getDiscountValue();
+        return membershipType.isValid() ? membershipType.getDiscountValue() : BigDecimal.ZERO;
     }
     
     // get discount unit by given membership type id
