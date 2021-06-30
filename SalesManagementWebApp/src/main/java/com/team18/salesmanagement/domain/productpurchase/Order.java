@@ -22,7 +22,31 @@ public class Order implements Serializable {
     private List<ProductDetail> productDetails;
     
     public void addProductDetail(ProductDetail productDetail) {
-        productDetails.add(productDetail);
+        if (productDetail.getQuantity() > 0) {
+            int index = -1;
+            
+            for (int i = 0; i < productDetails.size(); ++i) {
+                if ((int) productDetails.get(i).getId()
+                        == (int) productDetail.getId()) { // must be convert to int to compare by == operator
+                    index = i;
+                    break;
+                }
+            }
+            
+            if (index != -1) {
+                ProductDetail oldProductDetail = productDetails.get(index);
+                
+                oldProductDetail.setQuantity(oldProductDetail.getQuantity()
+                        + productDetail.getQuantity());
+                oldProductDetail.setDiscountValue(
+                        productDetail.getDiscountValue());
+                oldProductDetail.setDiscountUnit(
+                        productDetail.getDiscountUnit());
+            }
+            else {
+                productDetails.add(productDetail);
+            }
+        }
     }
 
     public Order() {
