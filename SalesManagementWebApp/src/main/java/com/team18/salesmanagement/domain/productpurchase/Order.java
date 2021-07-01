@@ -21,6 +21,48 @@ public class Order implements Serializable {
     private String discountUnit;
     private List<ProductDetail> productDetails;
     
+    // get total original price
+    public BigDecimal getTotalOriginalPrice() {
+        BigDecimal total = BigDecimal.ZERO;
+        
+        for (ProductDetail productDetail : productDetails) {
+            total.add(productDetail.getPrice());
+        }
+        
+        return total;
+    }
+    
+    // get membership discount amount
+    public BigDecimal getMembershipDiscountAmount() {
+        BigDecimal amount = BigDecimal.ZERO;
+        
+        if (discountUnit.equals("PERCENT")) {
+            amount = getTotalOriginalPrice()
+                    .multiply(discountValue.divide(BigDecimal.valueOf(100)));
+        }
+        else if (discountUnit.equals("FLAT_CURRENCY")) {
+            amount = discountValue;
+        }
+        
+        return amount;
+    }
+    
+    // get total discount amount
+    public BigDecimal getTotalDiscountAmount() {
+        BigDecimal totalAmount = getMembershipDiscountAmount();
+        
+        for (ProductDetail productDetail : productDetails) {
+            totalAmount.add(productDetail.getTotalDiscountAmountPerProduct());
+        }
+        
+        return totalAmount;
+    }
+    
+    // get total discount price
+    public BigDecimal getTotalDiscountPrice() {
+        return getTotalOriginalPrice().subtract(getTotalDiscountAmount());
+    }
+    
     public void addProductDetail(ProductDetail productDetail) {
         if (productDetail.getQuantity() > 0) {
             int index = -1;

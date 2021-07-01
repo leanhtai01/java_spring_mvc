@@ -33,6 +33,12 @@ public class ProductDetail implements Serializable {
         return amount;
     }
     
+    // get total discount amount per product
+    public BigDecimal getTotalDiscountAmountPerProduct() {
+        return getDiscountAmountPerProduct()
+                .multiply(BigDecimal.valueOf(quantity));
+    }
+    
     // get discount price per product
     public BigDecimal getDiscountPricePerProduct() {
         return price.subtract(getDiscountAmountPerProduct());
