@@ -22,6 +22,7 @@
         <b>${order.customer.phoneNumber}</b><br>
         <b>${order.customer.email}</b><br>
         <b>${order.customer.membershipType}</b><br>
+        <b>Balance: ${order.customer.balance}</b><br>
         <b>Order discount value: ${order.discountValue}</b><br>
         <b>Order discount unit: ${order.discountUnit}</b><br>
         <b>Debt limit: ${order.debtLimit}</b><br>
@@ -38,6 +39,7 @@
                 <th>weight</th>
                 <th>price</th>
                 <th>quantity</th>
+                <th>productDiscountId</th>
                 <th>discountValue</th>
                 <th>discountUnit</th>
                 <th>discountAmountPerProduct</th>
@@ -51,6 +53,7 @@
                         <td>${productDetail.weight}</td>
                         <td>${productDetail.price}</td>
                         <td>${productDetail.quantity}</td>
+                        <td>${productDetail.productDiscountId}</td>
                         <td>${productDetail.discountValue}</td>
                         <td>${productDetail.discountUnit}</td>
                         <td>${productDetail.discountAmountPerProduct}</td>
@@ -68,6 +71,8 @@
             <b>You saved: ${order.totalDiscountAmount}</b><br>
             <b>Total discount price: ${order.totalDiscountPrice}</b>
         </c:if>
+            
+        <br><hr><br>
 
         <sf:form action="${flowExecutionUrl}" method="post">
             <input type="submit" name="_eventId_addProduct" value="Add Product"/>
