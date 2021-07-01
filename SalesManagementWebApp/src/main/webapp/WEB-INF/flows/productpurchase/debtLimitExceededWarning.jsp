@@ -15,7 +15,7 @@
         <h2>Warning!!! Debt limit exceeded!</h2>
         <h3>Information:</h3>
         <b>Customer's debt limit: ${order.debtLimit}</b><br>
-        <b>Customer's current balance: ${order.balance}</b><br>
+        <b>Customer's current balance: ${order.customer.balance}</b><br>
         <b>Total price user must pay: ${order.totalDiscountPrice}</b><br>
         <b>Balance if checkout is perform: ${order.balanceAfterWithDraw}</b><br>
 

@@ -14,8 +14,21 @@
     <!-- build Order -->
     <subflow-state id="buildOrder" subflow="productpurchase/order">
         <input name="order" value="order"/>
-        <transition on="orderCreated" to="orderComplete"/>
+        <transition on="orderCreated" to="checkDebtLimitExceeded"/>
     </subflow-state>
+    
+    <!-- check for debt limit exceeded -->
+    <decision-state id="checkDebtLimitExceeded">
+        <if test="order.isDebtLimitExceeded()"
+            then="debtLimitExceededWarning"
+            else="orderComplete"/>
+    </decision-state>
+    
+    <!-- display warning for debt limit exceeded -->
+    <view-state id="debtLimitExceededWarning" model="order">
+        <transition on="accept" to="orderComplete"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
     
     <view-state id="orderComplete" model="order">
         <transition to="endState"/>
