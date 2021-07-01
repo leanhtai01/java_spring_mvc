@@ -21,6 +21,21 @@ public class Order implements Serializable {
     private String discountUnit;
     private List<ProductDetail> productDetails;
     
+    // check whether debt limit is exceeded
+    public boolean isDebtLimitExceeded() {
+        boolean isExceeded = true;
+        BigDecimal tmpBalanceAfterWithdraw = customer.getBalance()
+                .subtract(getTotalDiscountPrice());
+        
+        if (tmpBalanceAfterWithdraw.compareTo(BigDecimal.ZERO) < 0) {
+            if (tmpBalanceAfterWithdraw.abs().compareTo(debtLimit) > 0) {
+                isExceeded = false;
+            }
+        }
+        
+        return isExceeded;
+    }
+    
     // get total original price
     public BigDecimal getTotalOriginalPrice() {
         BigDecimal total = BigDecimal.ZERO;
