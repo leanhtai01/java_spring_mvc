@@ -26,7 +26,7 @@ public class Order implements Serializable {
         BigDecimal total = BigDecimal.ZERO;
         
         for (ProductDetail productDetail : productDetails) {
-            total.add(productDetail.getPrice());
+            total = total.add(productDetail.getTotalOriginalPrice());
         }
         
         return total;
@@ -47,15 +47,20 @@ public class Order implements Serializable {
         return amount;
     }
     
-    // get total discount amount
-    public BigDecimal getTotalDiscountAmount() {
-        BigDecimal totalAmount = getMembershipDiscountAmount();
+    // get total product discount amount
+    public BigDecimal getTotalProductDiscountAmount() {
+        BigDecimal totalAmount = BigDecimal.ZERO;
         
         for (ProductDetail productDetail : productDetails) {
-            totalAmount.add(productDetail.getTotalDiscountAmountPerProduct());
+            totalAmount = totalAmount.add(productDetail.getTotalDiscountAmountPerProduct());
         }
         
         return totalAmount;
+    }
+    
+    // get total discount amount
+    public BigDecimal getTotalDiscountAmount() {
+        return getMembershipDiscountAmount().add(getTotalProductDiscountAmount());
     }
     
     // get total discount price

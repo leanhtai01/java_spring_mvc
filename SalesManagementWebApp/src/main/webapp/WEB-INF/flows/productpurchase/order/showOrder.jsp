@@ -38,7 +38,6 @@
                 <th>weight</th>
                 <th>price</th>
                 <th>quantity</th>
-                <th>productDiscountId</th>
                 <th>discountValue</th>
                 <th>discountUnit</th>
                 <th>discountAmountPerProduct</th>
@@ -52,7 +51,6 @@
                         <td>${productDetail.weight}</td>
                         <td>${productDetail.price}</td>
                         <td>${productDetail.quantity}</td>
-                        <td>${productDetail.productDiscountId}</td>
                         <td>${productDetail.discountValue}</td>
                         <td>${productDetail.discountUnit}</td>
                         <td>${productDetail.discountAmountPerProduct}</td>
@@ -63,8 +61,12 @@
                 </c:forEach>
             </table>
             
+            <br><hr>
             <b>Total original price: ${order.totalOriginalPrice}</b><br>
-            <b>Total discount amount ${order.totalDiscountAmount}</b>
+            <b>Membership discount amount: -${order.membershipDiscountAmount}</b><br>
+            <b>Total product discount amount: -${order.totalProductDiscountAmount}</b><br>
+            <b>You saved: ${order.totalDiscountAmount}</b><br>
+            <b>Total discount price: ${order.totalDiscountPrice}</b>
         </c:if>
 
         <sf:form action="${flowExecutionUrl}" method="post">
