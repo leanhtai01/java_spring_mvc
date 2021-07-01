@@ -23,13 +23,13 @@ public class Order implements Serializable {
     
     // check whether debt limit is exceeded
     public boolean isDebtLimitExceeded() {
-        boolean isExceeded = true;
+        boolean isExceeded = false;
         BigDecimal tmpBalanceAfterWithdraw = customer.getBalance()
                 .subtract(getTotalDiscountPrice());
         
         if (tmpBalanceAfterWithdraw.compareTo(BigDecimal.ZERO) < 0) {
             if (tmpBalanceAfterWithdraw.abs().compareTo(debtLimit) > 0) {
-                isExceeded = false;
+                isExceeded = true;
             }
         }
         
