@@ -41,6 +41,10 @@
                 <th>productDiscountId</th>
                 <th>discountValue</th>
                 <th>discountUnit</th>
+                <th>discountAmountPerProduct</th>
+                <th>totalDiscountAmountPerProduct</th>
+                <th>totalOriginalPrice</th>
+                <th>totalDiscountPrice</th>
                 <c:forEach var="productDetail" items="${order.productDetails}">
                     <tr>
                         <td>${productDetail.id}</td>
@@ -51,9 +55,16 @@
                         <td>${productDetail.productDiscountId}</td>
                         <td>${productDetail.discountValue}</td>
                         <td>${productDetail.discountUnit}</td>
+                        <td>${productDetail.discountAmountPerProduct}</td>
+                        <td>${productDetail.totalDiscountAmountPerProduct}</td>
+                        <td>${productDetail.totalOriginalPrice}</td>
+                        <td>${productDetail.totalDiscountPrice}</td>
                     </tr>
                 </c:forEach>
             </table>
+            
+            <b>Total original price: ${order.totalOriginalPrice}</b><br>
+            <b>Total discount amount ${order.totalDiscountAmount}</b>
         </c:if>
 
         <sf:form action="${flowExecutionUrl}" method="post">
