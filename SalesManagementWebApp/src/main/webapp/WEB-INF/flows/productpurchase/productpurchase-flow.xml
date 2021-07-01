@@ -27,7 +27,7 @@
     <!-- display warning for debt limit exceeded -->
     <view-state id="debtLimitExceededWarning" model="order">
         <transition on="accept" to="orderComplete"/>
-        <transition on="cancel" to="cancel"/>
+        <transition on="cancel" to="endState"/>
     </view-state>
     
     <view-state id="orderComplete" model="order">
