@@ -21,6 +21,11 @@ public class Order implements Serializable {
     private String discountUnit;
     private List<ProductDetail> productDetails;
     
+    // get balance after withdraw
+    public BigDecimal getBalanceAfterWithDraw() {
+        return customer.getBalance().subtract(getTotalDiscountPrice());
+    }
+    
     // check whether debt limit is exceeded
     public boolean isDebtLimitExceeded() {
         boolean isExceeded = false;
