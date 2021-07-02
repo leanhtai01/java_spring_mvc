@@ -7,8 +7,11 @@ package com.team18.salesmanagement.flow;
 
 import com.team18.salesmanagement.data.customer.ICustomerRepository;
 import com.team18.salesmanagement.data.order.IOrderRepository;
+import com.team18.salesmanagement.data.orderdetail.IOrderDetailRepository;
 import com.team18.salesmanagement.data.withdraw.IWithdrawRepository;
+import com.team18.salesmanagement.domain.orderdetail.OrderDetail;
 import com.team18.salesmanagement.domain.productpurchase.Order;
+import com.team18.salesmanagement.domain.productpurchase.ProductDetail;
 import com.team18.salesmanagement.domain.withdraw.Withdraw;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -25,6 +28,9 @@ public class OrderFlowActions {
     
     @Autowired
     ICustomerRepository customerRepository;
+    
+    @Autowired
+    IOrderDetailRepository orderDetailRepository;
     
     public void saveOrder(Order compositeOrder) {
         // create objects from composite Order
@@ -48,5 +54,18 @@ public class OrderFlowActions {
         withdrawRepository.insert(withdraw);
         customerRepository.updateBalance(compositeOrder.getCustomer().getId(),
                 compositeOrder.getBalanceAfterWithDraw());
+        
+        // insert order detail
+        for (ProductDetail productDetail : compositeOrder.getProductDetails()) {
+            OrderDetail orderDetail = new OrderDetail(
+                    orderId,
+                    productDetail.getId(),
+                    productDetail.getQuantity(),
+                    productDetail.getDiscountValue(),
+                    productDetail.getDiscountUnit()
+            );
+            
+            orderDetailRepository.insert(orderDetail);
+        }
     }
 }
