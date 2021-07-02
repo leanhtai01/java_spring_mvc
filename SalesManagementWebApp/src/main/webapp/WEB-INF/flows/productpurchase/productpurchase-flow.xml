@@ -21,14 +21,20 @@
     <decision-state id="checkDebtLimitExceeded">
         <if test="order.isDebtLimitExceeded()"
             then="debtLimitExceededWarning"
-            else="orderComplete"/>
+            else="saveOrder"/>
     </decision-state>
     
     <!-- display warning for debt limit exceeded -->
     <view-state id="debtLimitExceededWarning" model="order">
-        <transition on="accept" to="orderComplete"/>
+        <transition on="accept" to="saveOrder"/>
         <transition on="cancel" to="endState"/>
     </view-state>
+    
+    <!-- save order -->
+    <action-state id="saveOrder">
+        <evaluate expression="orderFlowActions.saveOrder(order)"/>
+        <transition to="orderComplete"/>
+    </action-state>
     
     <view-state id="orderComplete" model="order">
         <transition to="endState"/>
