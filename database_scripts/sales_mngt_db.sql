@@ -413,3 +413,20 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure insert withdraw
+DELIMITER $$
+
+CREATE PROCEDURE insert_withdraw(IN param_customer_id INT,
+                                 IN param_withdraw_amount DECIMAL(13, 4),
+				 IN param_balance_before_withdraw DECIMAL(13, 4),
+				 IN param_balance_after_withdraw DECIMAL(13, 4),
+				 IN param_withdraw_date DATE)
+BEGIN
+    INSERT INTO withdraws(customer_id, withdraw_amount, balance_before_withdraw,
+                          balance_after_withdraw, withdraw_date)
+    VALUES (param_customer_id, param_withdraw_amount, param_balance_before_withdraw,
+            param_balance_after_withdraw, param_withdraw_date);
+END $$
+
+DELIMITER ;
