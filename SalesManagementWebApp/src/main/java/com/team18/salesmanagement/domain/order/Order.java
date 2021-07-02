@@ -16,6 +16,16 @@ public class Order implements Serializable {
     private BigDecimal discountValue;
     private String discountUnit;
 
+    public Order(int customerId, LocalDate orderDate, BigDecimal discountValue,
+            String discountUnit) {
+        this.customerId = customerId;
+        this.orderDate = orderDate;
+        this.discountValue = discountValue;
+        this.discountUnit = discountUnit;
+    }
+    
+    
+
     public Order() {
     }
 
