@@ -7,6 +7,7 @@ package com.team18.salesmanagement.flow;
 
 import com.team18.salesmanagement.data.order.IOrderRepository;
 import com.team18.salesmanagement.domain.productpurchase.Order;
+import com.team18.salesmanagement.domain.withdraw.Withdraw;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,6 +26,14 @@ public class OrderFlowActions {
                         compositeOrder.getDiscountValue(),
                         compositeOrder.getDiscountUnit()
                 );
+        
+        Withdraw withdraw = new Withdraw(
+                compositeOrder.getCustomer().getId(),
+                compositeOrder.getTotalDiscountPrice(),
+                compositeOrder.getCustomer().getBalance(),
+                compositeOrder.getBalanceAfterWithDraw(),
+                LocalDate.now()
+        );
         
         Integer orderId = orderRepository.insert(basicOrder);
     }
