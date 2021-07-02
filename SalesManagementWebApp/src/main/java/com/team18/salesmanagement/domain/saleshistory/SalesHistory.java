@@ -7,7 +7,7 @@ package com.team18.salesmanagement.domain.saleshistory;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  *
@@ -19,12 +19,12 @@ public class SalesHistory implements Serializable {
     private int order_id;
     private String customer_name;
     private BigDecimal total_detail;
-    private Date order_date;
+    private LocalDate order_date;
 
     public SalesHistory() {
     }
 
-    public SalesHistory(int customer_id, int order_id, String customer_name, BigDecimal total_detail, Date order_date) {
+    public SalesHistory(int customer_id, int order_id, String customer_name, BigDecimal total_detail, LocalDate order_date) {
         this.customer_id = customer_id;
         this.order_id = order_id;
         this.customer_name = customer_name;
@@ -64,11 +64,11 @@ public class SalesHistory implements Serializable {
         this.total_detail = total_detail;
     }
 
-    public Date getOrder_date() {
+    public LocalDate getOrder_date() {
         return order_date;
     }
 
-    public void setOrder_date(Date order_date) {
+    public void setOrder_date(LocalDate order_date) {
         this.order_date = order_date;
     }
 }

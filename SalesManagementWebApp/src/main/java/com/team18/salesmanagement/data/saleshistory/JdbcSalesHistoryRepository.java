@@ -5,9 +5,7 @@
  */
 package com.team18.salesmanagement.data.saleshistory;
 
-import com.team18.salesmanagement.domain.customer.Customer;
 import com.team18.salesmanagement.domain.saleshistory.SalesHistory;
-import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -48,7 +46,7 @@ public class JdbcSalesHistoryRepository implements ISalesHistoryRepository {
                             rs.getInt("order_id"),
                             rs.getString("customer_name"),
                             rs.getBigDecimal("total_detail"),
-                            rs.getDate("order_date")
+                            rs.getDate("order_date").toLocalDate()
                     );
                 })
                 .execute(inParams);
