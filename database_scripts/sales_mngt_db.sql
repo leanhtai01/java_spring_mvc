@@ -396,3 +396,20 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure insert new orderDetail
+DELIMITER $$
+
+CREATE PROCEDURE insert_order_detail(IN param_order_id INT,
+                                     IN param_product_id INT,
+				     IN param_quantity INT,
+				     IN param_discount_value DECIMAL(13, 4),
+				     IN param_discount_unit ENUM('PERCENT', 'FLAT_CURRENCY'))
+BEGIN
+    INSERT INTO order_details(order_id, product_id, quantity, discount_value,
+                              discount_unit)
+    VALUES (param_order_id, param_product_id, param_quantity,
+            param_discount_value, param_discount_unit);
+END $$
+
+DELIMITER ;
