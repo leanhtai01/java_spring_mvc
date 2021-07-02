@@ -28,15 +28,17 @@ public class JdbcOrderDetailRepository implements IOrderDetailRepository {
     // insert an Order Detail
     @Override
     public void insert(OrderDetail orderDetail) {
-        Map<String, Object> params = new HashMap<>();
+        final String INSERT_ORDER_DETAIL =
+                "INSERT INTO order_details(order_id, product_id, quantity, "
+                                        + "discount_value, discount_unit) "
+              + "VALUES (?, ?, ?, ?, ?);";
         
-        params.put("param_order_id", orderDetail.getOrderId());
-        params.put("param_product_id", orderDetail.getProductId());
-        params.put("param_quantity", orderDetail.getQuantity());
-        params.put("param_discount_value", orderDetail.getDiscountValue());
-        params.put("param_discount_unit", orderDetail.getDiscountUnit());
-        
-        simpleJdbcCall.withProcedureName("insert_order_detail")
-                .execute(params);
+        jdbcOperations.update(INSERT_ORDER_DETAIL,
+                orderDetail.getOrderId(),
+                orderDetail.getProductId(),
+                orderDetail.getQuantity(),
+                orderDetail.getDiscountValue(),
+                orderDetail.getDiscountUnit()
+        );
     }
 }
