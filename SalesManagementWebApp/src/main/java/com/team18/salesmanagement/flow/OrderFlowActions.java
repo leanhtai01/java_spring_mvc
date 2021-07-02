@@ -5,10 +5,12 @@
 // GitHub: https://github.com/leanhtai01
 package com.team18.salesmanagement.flow;
 
+import com.team18.salesmanagement.data.customer.ICustomerRepository;
 import com.team18.salesmanagement.data.order.IOrderRepository;
 import com.team18.salesmanagement.data.withdraw.IWithdrawRepository;
 import com.team18.salesmanagement.domain.productpurchase.Order;
 import com.team18.salesmanagement.domain.withdraw.Withdraw;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,9 @@ public class OrderFlowActions {
     
     @Autowired
     IWithdrawRepository withdrawRepository;
+    
+    @Autowired
+    ICustomerRepository customerRepository;
     
     public void saveOrder(Order compositeOrder) {
         // create objects from composite Order
@@ -41,5 +46,7 @@ public class OrderFlowActions {
         
         Integer orderId = orderRepository.insert(basicOrder);
         withdrawRepository.insert(withdraw);
+        customerRepository.updateBalance(compositeOrder.getCustomer().getId(),
+                compositeOrder.getBalanceAfterWithDraw());
     }
 }
