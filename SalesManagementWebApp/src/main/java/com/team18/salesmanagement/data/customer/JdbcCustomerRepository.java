@@ -209,12 +209,10 @@ public class JdbcCustomerRepository implements ICustomerRepository {
     // update Customer's balance
     @Override
     public void updateBalance(Integer id, BigDecimal balance) {
-        Map<String, Object> params = new HashMap<>();
+        final String UPDATE_CUSTOMER_BALANCE = "UPDATE customers "
+                + "SET balance = ? "
+                + "WHERE id = ?;";
         
-        params.put("cust_id", id);
-        params.put("cust_balance", balance);
-        
-        simpleJdbcCall.withProcedureName("update_customer_balance")
-                .execute(params);
+        jdbcOperations.update(UPDATE_CUSTOMER_BALANCE, balance, id);
     }
 } // end class JdbcCustomerRepository
