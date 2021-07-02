@@ -377,3 +377,22 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure insert new Order
+DELIMITER $$
+
+CREATE PROCEDURE insert_order(OUT order_id INT,
+                              IN param_customer_id INT,
+                              IN param_order_date DATE,
+			      IN param_discount_value DECIMAL(13, 4),
+			      IN param_discount_unit ENUM('PERCENT',
+			                                  'FLAT_CURRENCY'))
+BEGIN
+    INSERT INTO orders(customer_id, order_date, discount_value, discount_unit)
+    VALUES (param_customer_id, param_order_date, param_discount_value,
+            param_discount_unit);
+
+    SET order_id = (SELECT LAST_INSERT_ID());
+END $$
+
+DELIMITER ;
