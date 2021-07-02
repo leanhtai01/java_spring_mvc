@@ -430,3 +430,16 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure update customer's balance
+DELIMITER $$
+
+CREATE PROCEDURE update_customer_balance(IN cust_id INT,
+                                         IN cust_balance DECIMAL(13, 4))
+BEGIN
+    UPDATE customers
+    SET balance = cust_balance
+    WHERE id = cust_id;
+END $$
+
+DELIMITER ;
