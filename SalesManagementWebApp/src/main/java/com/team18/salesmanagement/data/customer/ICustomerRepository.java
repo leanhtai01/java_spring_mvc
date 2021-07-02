@@ -6,6 +6,7 @@
 package com.team18.salesmanagement.data.customer;
 
 import com.team18.salesmanagement.domain.customer.Customer;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ICustomerRepository {
@@ -16,4 +17,5 @@ public interface ICustomerRepository {
     void update(Customer customer);
     Integer getId(String phoneNumber);
     Customer getCustomer(String phoneNumber);
+    void updateBalance(Integer id, BigDecimal balance);
 }

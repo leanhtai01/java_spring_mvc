@@ -6,6 +6,7 @@
 package com.team18.salesmanagement.data.customer;
 
 import com.team18.salesmanagement.domain.customer.Customer;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -203,5 +204,17 @@ public class JdbcCustomerRepository implements ICustomerRepository {
         }
         
         return ((List<Customer>) result.get("customers")).get(0);
+    }
+    
+    // update Customer's balance
+    @Override
+    public void updateBalance(Integer id, BigDecimal balance) {
+        Map<String, Object> params = new HashMap<>();
+        
+        params.put("cust_id", id);
+        params.put("cust_balance", balance);
+        
+        simpleJdbcCall.withProcedureName("update_customer_balance")
+                .execute(params);
     }
 } // end class JdbcCustomerRepository
