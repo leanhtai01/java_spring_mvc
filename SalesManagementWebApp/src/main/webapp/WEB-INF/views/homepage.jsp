@@ -36,6 +36,7 @@
                         <li><a class="nav-link" href="membershiptype/manager">Membership</a></li>
                         <li><a class="nav-link" href="productpurchase">Product Purchase</a></li>
                         <li><a class="nav-link" href="saleshistory/index">Sales History</a></li>
+                        <li><a class="nav-link" href="deposit/add">Deposit</a></li>
                     </ul>
                 </div>
             </div>

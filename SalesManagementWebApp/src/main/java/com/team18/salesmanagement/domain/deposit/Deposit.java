@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class Deposit implements Serializable {
+
     private int id;
     private int customerId;
     private BigDecimal depositAmount;
@@ -24,6 +25,14 @@ public class Deposit implements Serializable {
             BigDecimal balanceBeforeDeposit, BigDecimal balanceAfterDeposit,
             LocalDate depositDate) {
         this.id = id;
+        this.customerId = customerId;
+        this.depositAmount = depositAmount;
+        this.balanceBeforeDeposit = balanceBeforeDeposit;
+        this.balanceAfterDeposit = balanceAfterDeposit;
+        this.depositDate = depositDate;
+    }
+
+    public Deposit(int customerId, BigDecimal depositAmount, BigDecimal balanceBeforeDeposit, BigDecimal balanceAfterDeposit, LocalDate depositDate) {
         this.customerId = customerId;
         this.depositAmount = depositAmount;
         this.balanceBeforeDeposit = balanceBeforeDeposit;
