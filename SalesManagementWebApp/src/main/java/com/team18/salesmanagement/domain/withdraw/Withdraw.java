@@ -20,6 +20,16 @@ public class Withdraw implements Serializable {
     public Withdraw() {
     }
 
+    public Withdraw(Integer customerId, BigDecimal withdrawAmount,
+            BigDecimal balanceBeforeWithdraw, BigDecimal balanceAfterWithdraw,
+            LocalDate withdrawDate) {
+        this.customerId = customerId;
+        this.withdrawAmount = withdrawAmount;
+        this.balanceBeforeWithdraw = balanceBeforeWithdraw;
+        this.balanceAfterWithdraw = balanceAfterWithdraw;
+        this.withdrawDate = withdrawDate;
+    }
+
     public Withdraw(Integer id, Integer customerId, BigDecimal withdrawAmount,
             BigDecimal balanceBeforeWithdraw, BigDecimal balanceAfterWithdraw,
             LocalDate withdrawDate) {
