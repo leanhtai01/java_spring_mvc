@@ -28,18 +28,18 @@ public class JdbcWithdrawRepository implements IWithdrawRepository {
     // insert a Withdraw
     @Override
     public void insert(Withdraw withdraw) {
-        Map<String, Object> params = new HashMap<>();
+        final String INSERT_WITHDRAW =
+                "INSERT INTO withdraws(customer_id, withdraw_amount, "
+                                    + "balance_before_withdraw, "
+                                    + "balance_after_withdraw, withdraw_date) "
+              + "VALUES (?, ?, ?, ?, ?)";
         
-        params.put("param_customer_id", withdraw.getCustomerId());
-        params.put("param_withdraw_amount", withdraw.getWithdrawAmount());
-        params.put("param_balance_before_withdraw",
-                withdraw.getBalanceBeforeWithdraw());
-        params.put("param_balance_after_withdraw",
-                withdraw.getBalanceAfterWithdraw());
-        params.put("param_withdraw_date",
-                withdraw.getWithdrawDate());
-        
-        simpleJdbcCall.withProcedureName("insert_withdraw")
-                .execute(params);
+        jdbcOperations.update(INSERT_WITHDRAW,
+                withdraw.getCustomerId(),
+                withdraw.getWithdrawAmount(),
+                withdraw.getBalanceBeforeWithdraw(),
+                withdraw.getBalanceAfterWithdraw(),
+                withdraw.getWithdrawDate()
+        );
     }
 }
