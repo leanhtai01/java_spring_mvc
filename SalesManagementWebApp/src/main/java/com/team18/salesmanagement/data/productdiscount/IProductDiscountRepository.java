@@ -5,6 +5,7 @@
  */
 package com.team18.salesmanagement.data.productdiscount;
 
+import com.team18.salesmanagement.domain.productdiscount.DiscountWithProductName;
 import com.team18.salesmanagement.domain.productdiscount.ProductDiscount;
 import com.team18.salesmanagement.domain.productpurchase.ProductDiscount2;
 import java.math.BigDecimal;
@@ -17,6 +18,8 @@ import java.util.List;
 public interface IProductDiscountRepository {
     List<ProductDiscount> getProductDiscountList();
     List<ProductDiscount> getDiscountFromProductName(String product_name);
+    List<DiscountWithProductName> getDiscountWithProductNameList();
+    List<DiscountWithProductName> getDiscountWithProductNameFromProductName(String product_name);
     void addProductDiscount(ProductDiscount product_discount);
     void updateProductDiscount(ProductDiscount product_discount);
     void deleteProductDiscount(Integer id);
