@@ -5,6 +5,7 @@
  */
 package com.team18.salesmanagement.data.productdiscount;
 
+import com.team18.salesmanagement.domain.productdiscount.DiscountWithProductName;
 import com.team18.salesmanagement.domain.productdiscount.ProductDiscount;
 import com.team18.salesmanagement.domain.productpurchase.ProductDiscount2;
 import java.math.BigDecimal;
@@ -40,8 +41,8 @@ public class JdbcProductDiscountRepository implements IProductDiscountRepository
                             rs.getInt("product_id"),
                             rs.getFloat("discount_value"),
                             rs.getString("discount_unit"),
-                            rs.getString("valid_from"),
-                            rs.getString("valid_until")
+                            rs.getDate("valid_from").toLocalDate(),
+                            rs.getDate("valid_until").toLocalDate()
                     );
                 });
     }
@@ -57,12 +58,49 @@ public class JdbcProductDiscountRepository implements IProductDiscountRepository
                             rs.getInt("product_id"),
                             rs.getFloat("discount_value"),
                             rs.getString("discount_unit"),
-                            rs.getString("valid_from"),
-                            rs.getString("valid_until")
+                            rs.getDate("valid_from").toLocalDate(),
+                            rs.getDate("valid_until").toLocalDate()
                     );
                 });
     }
     
+    @Override
+    public List<DiscountWithProductName> getDiscountWithProductNameList(){
+        final String SELECT_ALL_DISCOUNT = "select d.*, p.name as product_name, p.weight as product_weight from product_discounts d join products p on d.product_id = p.id order by d.id;";
+        
+        return jdbcOperations.query(SELECT_ALL_DISCOUNT,
+                (rs, rowNum) -> {
+                    return new DiscountWithProductName(
+                            rs.getInt("id"),
+                            rs.getInt("product_id"),
+                            rs.getString("product_name"),
+                            rs.getDouble("product_weight"),
+                            rs.getFloat("discount_value"),
+                            rs.getString("discount_unit"),
+                            rs.getDate("valid_from").toLocalDate(),
+                            rs.getDate("valid_until").toLocalDate()
+                    );
+                });
+    }
+    
+    @Override
+    public List<DiscountWithProductName> getDiscountWithProductNameFromProductName(String product_name){
+        final String SEARCH_DISCOUNT = String.format("select d.*, p.name as product_name, p.weight as product_weight from product_discounts d join products p on d.product_id = p.id where p.`name` like \'%%%s%%\' order by d.id", product_name);
+
+        return jdbcOperations.query(SEARCH_DISCOUNT,
+                (rs, rowNum) -> {
+                    return new DiscountWithProductName(
+                            rs.getInt("id"),
+                            rs.getInt("product_id"),
+                            rs.getString("product_name"),
+                            rs.getDouble("product_weight"),
+                            rs.getFloat("discount_value"),
+                            rs.getString("discount_unit"),
+                            rs.getDate("valid_from").toLocalDate(),
+                            rs.getDate("valid_until").toLocalDate()
+                    );
+                });
+    }
     @Override
     public void addProductDiscount(ProductDiscount product_discount) {
         final String ADD_DISCOUNT = String.format("INSERT INTO `product_discounts`(`product_id`,`discount_value`,`discount_unit`,`valid_from`,`valid_until`) VALUES (\'%d\', \'%f\', \'%s\', \'%s\', \'%s\')", 
@@ -114,6 +152,7 @@ public class JdbcProductDiscountRepository implements IProductDiscountRepository
     }
     
     // get discounts by given product id
+    @Override
     public List<ProductDiscount2> getProductDiscounts(Integer productId) {
         final String GET_DISCOUNTS = "SELECT * FROM product_discounts"
                 + " WHERE product_id = ?";
