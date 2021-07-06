@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+    <var name="customerAndMembershipTypeList" class="com.team18.salesmanagement.domain.productpurchase.CustomerAndMembershipTypeList"/>
+    <input name="order" required="true"/>
+    
+    <!-- phone number collect form -->
+    <view-state id="phoneNumberCollectForm">
+        <transition on="phoneEntered" to="searchCustomer"/>
+    </view-state>
+    
+    <!-- search customer by phone number -->
+    <action-state id="searchCustomer">
+        <evaluate result="order.customer" expression="jdbcCustomerRepository.getCustomer(requestParameters.phoneNumber)"/>
+        <transition to="getMembershipTypeList" on-exception="com.team18.salesmanagement.data.customer.CustomerNotFoundException"/>
+        <transition to="customerReady"/>
+    </action-state>
+    
+    <!-- get membership type list -->
+    <action-state id="getMembershipTypeList">
+        <evaluate result="customerAndMembershipTypeList.membershipTypes" expression="jdbcMembershipTypeRepository.getList()"/>
+        <transition to="addCustomerForm"/>
+    </action-state>
+    
+    <!-- display add customer form -->
+    <view-state id="addCustomerForm" model="customerAndMembershipTypeList">
+        <transition on="submit" to="addCustomer"/>
+    </view-state>
+    
+    <action-state id="addCustomer">
+        <evaluate result="order.customer.id" expression="jdbcCustomerRepository.insert(customerAndMembershipTypeList.customer)"/>
+        <transition to="errorDuplicatePhoneNumber" on-exception="com.team18.salesmanagement.data.customer.DuplicatePhoneNumberException"/>
+        <transition to="errorDuplicateEmail" on-exception="com.team18.salesmanagement.data.customer.DuplicateEmailException"/>
+        <transition to="addNewCustomerToOrder"/>
+    </action-state>
+    
+    <!-- display duplicate phone number error -->
+    <view-state id="errorDuplicatePhoneNumber">
+        <transition on="tryagain" to="addCustomerForm"/>
+    </view-state>
+    
+    <!-- display duplicate email error -->
+    <view-state id="errorDuplicateEmail">
+        <transition on="tryagain" to="addCustomerForm"/>
+    </view-state>
+    
+    <!-- add new customer to order -->
+    <action-state id="addNewCustomerToOrder">
+        <evaluate result="order.customer" expression="jdbcCustomerRepository.getCustomer(order.customer.id)"/>
+        <transition to="customerReady"/>
+    </action-state>
+    
+    <end-state id="cancel"/>
+    <end-state id="customerReady"/>
+    
+    <global-transitions>
+        <transition on="cancel" to="cancel"/>
+    </global-transitions>
+</flow>

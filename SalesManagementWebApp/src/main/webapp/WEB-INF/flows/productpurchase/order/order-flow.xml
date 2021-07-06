@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+    <var name="productDetailAndProductList" class="com.team18.salesmanagement.domain.productpurchase.ProductDetailAndProductList"/>
+    <input name="order" required="true"/>
+    
+    <!-- show Order -->
+    <view-state id="showOrder">
+        <transition on="addProduct" to="getProductList"/>
+        <transition on="checkout" to="orderCreated"/>
+        <transition on="cancel" to="cancel"/>
+    </view-state>
+    
+    <!-- get product list -->
+    <action-state id="getProductList">
+        <evaluate result="productDetailAndProductList.products" expression="productRepositoryIml.getProductList()"/>
+        <transition to="showProductList"/>
+    </action-state>
+    
+    <!-- show product list -->
+    <view-state id="showProductList" model="productDetailAndProductList">
+        <transition on="add" to="addProduct"/>
+        <transition on="cancel" to="showOrder"/>
+    </view-state>
+    
+    <!-- add product -->
+    <action-state id="addProduct">
+        <evaluate expression="order.addProductDetail(productDetailAndProductList.productDetail)"/>
+        <transition to="showOrder"/>
+    </action-state>
+    
+<!--     add Product to Order 
+    <view-state id="addProduct" model="flowScope.productDetail">
+        <on-entry>
+            <set name="flowScope.product" value="new com.team18.salesmanagement.domain.productpurchase.ProductDetail()"/>
+        </on-entry>
+        <transition on="addProduct" to="showOrder">
+            <evaluate expression="order.addProductDetail(flowScope.productDetail)"/>
+        </transition>
+        <transition on="cancel" to="showOrder"/>
+    </view-state>-->
+    
+    <end-state id="cancel"/>
+    <end-state id="orderCreated"/>
+</flow>

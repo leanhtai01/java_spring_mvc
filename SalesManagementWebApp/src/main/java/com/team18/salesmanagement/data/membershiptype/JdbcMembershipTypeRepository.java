@@ -18,6 +18,7 @@ public class JdbcMembershipTypeRepository implements IMembershipTypeRepository {
         this.jdbcOperations = jdbcOperations;
     }
     
+    @Override
     public List<MembershipType> getList() {
         final String GET_MEMBERSHIP_TYPE_LIST =
                 "SELECT * FROM membership_types;";

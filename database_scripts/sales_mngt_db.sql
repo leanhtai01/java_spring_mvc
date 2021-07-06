@@ -231,6 +231,7 @@ CREATE PROCEDURE insert_customer(IN cust_name VARCHAR(50),
 				 IN cust_email VARCHAR(50),
 				 IN cust_balance DECIMAL(13, 4),
 				 IN cust_membership_type_id INT,
+				 OUT cust_id INT,
 				 OUT error_code INT)
 BEGIN
     IF ((SELECT COUNT(*)
@@ -250,7 +251,8 @@ BEGIN
 	                          membership_type_id)
 	    VALUES (cust_name, cust_phone_number, cust_email, cust_balance,
 	            cust_membership_type_id);
-		    
+
+            SET cust_id = (SELECT LAST_INSERT_ID());
 	    SET error_code = 0; -- insert success
 	END IF;
     END IF;
@@ -298,6 +300,80 @@ BEGIN
 	    END IF;
 	END IF;
     END IF;
+END $$
+
+DELIMITER ;
+
+-- create stored procedure get Customer's id
+DELIMITER $$
+
+CREATE PROCEDURE get_customer_id(IN cust_phone_number VARCHAR(50),
+                                 OUT cust_id INT,
+				 OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE phone_number = cust_phone_number) > 0)
+    THEN
+        SET cust_id = (SELECT id
+	               FROM customers
+		       WHERE phone_number = cust_phone_number);
+	SET error_code = 0; -- customer found
+    ELSE
+        SET error_code = 1; -- customer not found
+    END IF;
+END $$
+
+DELIMITER ;
+
+-- create stored procedure get a Customer by phone number
+DELIMITER $$
+
+CREATE PROCEDURE get_customer(IN cust_phone_number VARCHAR(50),
+                              OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE phone_number = cust_phone_number) > 0)
+    THEN
+	SET error_code = 0; -- customer found
+    ELSE
+        SET error_code = 1; -- customer not found
+    END IF;
+
+    SELECT c.id, c.name, c.phone_number, c.email, c.balance,
+	   c.membership_type_id,
+	   (SELECT mst.membership_type
+	    FROM membership_types mst
+            WHERE mst.id = c.membership_type_id) AS membership_type
+    FROM customers c
+    WHERE c.phone_number = cust_phone_number;
+END $$
+
+DELIMITER ;
+
+-- create stored procedure get a Customer by id
+DELIMITER $$
+
+CREATE PROCEDURE get_customer_by_id(IN cust_id INT,
+                                    OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM customers
+	 WHERE id = cust_id) > 0)
+    THEN
+	SET error_code = 0; -- customer found
+    ELSE
+        SET error_code = 1; -- customer not found
+    END IF;
+
+    SELECT c.id, c.name, c.phone_number, c.email, c.balance,
+	   c.membership_type_id,
+	   (SELECT mst.membership_type
+	    FROM membership_types mst
+            WHERE mst.id = c.membership_type_id) AS membership_type
+    FROM customers c
+    WHERE c.id = cust_id;
 END $$
 
 DELIMITER ;

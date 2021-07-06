@@ -12,6 +12,8 @@ public interface ICustomerRepository {
     List<Customer> getCustomerInfo(String phoneNumber);
     void deleteCustomer(int id);
     Customer getCustomer(int id);
-    void insert(Customer customer);
+    Integer insert(Customer customer);
     void update(Customer customer);
+    Integer getId(String phoneNumber);
+    Customer getCustomer(String phoneNumber);
 }

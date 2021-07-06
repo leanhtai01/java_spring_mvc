@@ -17,4 +17,5 @@ public interface IProductRepository {
     Product getProductbyId(Integer id);
     int saveProduct(Product product);
     int deleteProduct(Integer id);
+    List<Product> getProductList();
 }

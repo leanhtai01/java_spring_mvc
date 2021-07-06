@@ -13,5 +13,8 @@
     </head>
     <body>
         <h2>This is first state!</h2>
+        <form action="${flowExecutionUrl}" method="post">
+            <input type="submit" name="_eventId_finish" value="Finish"/>
+        </form>
     </body>
 </html>

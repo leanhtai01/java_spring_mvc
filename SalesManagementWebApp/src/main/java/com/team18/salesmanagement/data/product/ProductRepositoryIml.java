@@ -76,4 +76,19 @@ public class ProductRepositoryIml implements IProductRepository{
         }
         return result;
     }
+    
+    @Override
+    public List<Product> getProductList() {
+        final String GET_PRODUCTS = "SELECT * FROM products;";
+        
+        return jdbcOperations.query(GET_PRODUCTS,
+                (rs, rowNum) -> {
+                    return new Product(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getDouble("weight"),
+                            rs.getDouble("price")
+                    );
+                });
+    }
 }
