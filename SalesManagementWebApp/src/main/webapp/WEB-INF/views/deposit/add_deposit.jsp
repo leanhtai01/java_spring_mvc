@@ -19,7 +19,7 @@
             <div class="input-group my-4">
                 <label class="input-group-text">Customer: </label>
                 <select class="form-select" id="input_customer">
-                    <option selected disabled>Choose customer</option>
+                    <option selected disabled value="">Choose customer</option>
                     <c:forEach var="customer" items="${list_customer}">
                         <option value="${customer.id}">${customer.name} - ${customer.phoneNumber}</option>
                     </c:forEach>
@@ -29,13 +29,9 @@
                 <label class="input-group-text">Deposit Amount: </label>
                 <input class="form-control" type="text" placeholder="Type deposit amount" id="input_deposit_amount">
             </div>
-            <div class="input-group my-4">
-                <label class="input-group-text">Deposit Date: </label>
-                <input class="" type="date" id="input_deposit_date">
-            </div>
             <div class="d-flex my-4">
                 <div class="mx-auto">
-                    <a class="btn btn-outline-light mx-2" href="#" onclick="cancelClick()">Cancel</a>
+                    <a class="btn btn-outline-light mx-2" href="../">Cancel</a>
                     <a class="btn btn-outline-light mx-2" href="#" onclick="nextClick()">Next</a>
                 </div>
             </div>
@@ -48,14 +44,29 @@
     </body>
     <script>
         function nextClick() {
+            $error = "";
             $('#f_customer_id').val($('#input_customer :selected').val());
             $('#f_deposit_amount').val($('#input_deposit_amount').val());
-            $('#f_deposit_date').val($('#input_deposit_date').val());
-            $('#frm_hidden').attr('action', './submit');
-            $("#frm_hidden").submit();
-        }
-        function cancelClick() {
-            window.location.href = '../';
+            $('#f_deposit_date').val(new Date().toISOString().substring(0, 10));
+
+            if ($('#f_customer_id').val() === "") {
+                $error = $error + "customer is not selected \n";
+            }
+
+            if ($('#f_deposit_amount').val() === "") {
+                $error = $error + "deposit amount must not be empty \n";
+            } else {
+                if ($.isNumeric($('#f_deposit_amount').val()) === false) {
+                    $error = $error + "deposit amount must be number \n";
+                }
+            }
+
+            if ($error !== "") {
+                alert($error);
+            } else {
+                $('#frm_hidden').attr('action', './submit');
+                $("#frm_hidden").submit();
+            }
         }
     </script>
     <script src="../scripts/jquery-3.6.0.min.js"></script>
