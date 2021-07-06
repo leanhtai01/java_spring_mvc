@@ -5,6 +5,7 @@
 --%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,11 @@
                     <div>Customer: ${invoice.customer.name}</div>
                     <div>Phone Number: ${invoice.customer.phoneNumber}</div>
                     <div>Email: ${invoice.customer.email}</div>
+                    <div>MEMBER SHIP: ${invoice.membershipType.membershipType}</div>
+                    <div>MEMBER SHIP DISCOUNT: <fmt:formatNumber type="number" groupingUsed="true" value="${invoice.membershipType.discountValue}" />
+                        <c:if test = "${invoice.membershipType.discountUnit == 'FLAT_CURRENCY'}">VND</c:if>
+                        <c:if test = "${invoice.membershipType.discountUnit == 'PERCENT'}">%</c:if>
+                    </div>
                 </div>
             </div>
         </section>
@@ -52,14 +58,14 @@
                                     <td>${loop.index + 1}</td>
                                     <td>${detail.product.name}</td>
                                     <td>${detail.product.weight}</td>
-                                    <td>${detail.product.price}</td>
+                                    <td><fmt:formatNumber type="number" groupingUsed="true" value="${detail.product.price}" /> VND</td>
                                     <td>${detail.quantity}</td>
                                     <td>
-                                        ${detail.discount_value} ${detail.discount_unit_display}</td>
+                                        <fmt:formatNumber type="number" groupingUsed="true" value="${detail.discount_value}" /> ${detail.discount_unit_display}</td>
                                     <td>
-                                        <i><s>${detail.priceOrigin} VND</s></i>
+                                        <i><s><fmt:formatNumber type="number" groupingUsed="true" value="${detail.priceOrigin}" /> VND</s></i>
                                         <br>
-                                        ${detail.amount} VND
+                                        <fmt:formatNumber type="number" groupingUsed="true" value="${detail.amount}" /> VND
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -70,19 +76,35 @@
                                             SUB TOTAL:
                                         </b>
                                     </td>
-                                    <td>${invoice.subTotal} VND</td>
+                                    <td>
+                                        <fmt:formatNumber type="number" groupingUsed="true" value="${invoice.subTotal}" /> VND
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="5"></td>
                                     <td>
                                         <b>
-                                            DISCOUNT:
+                                            TOTAL PRODUCTS DISCOUNT:
                                         </b>
                                         <c:if test = "${invoice.discount_unit_display == '%'}">
                                             <i>(${invoice.discount_value} ${invoice.discount_unit_display})</i>
                                         </c:if>
                                     </td>
-                                    <td>${invoice.priceDiscount} VND</td>
+                                    <td><fmt:formatNumber type="number" groupingUsed="true" value="${invoice.priceDiscount}" /> VND</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5"></td>
+                                    <td>
+                                        <b>
+                                            MEMBER SHIP DISCOUNT:
+                                        </b>
+                                        <c:if test = "${invoice.membershipType.discountUnit == 'PERCENT'}">
+                                            <i>(<fmt:formatNumber type="number" groupingUsed="true" value="${invoice.membershipType.discountValue}" /> %)</i>
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <fmt:formatNumber type="number" groupingUsed="true" value="${invoice.priceMemberDiscount}" /> VND
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="5"></td>
@@ -91,7 +113,9 @@
                                             TOTAL AMOUNT:
                                         </b>
                                     </td>
-                                    <td>${invoice.amount} VND</td>
+                                    <td>
+                                        <fmt:formatNumber type="number" groupingUsed="true" value="${invoice.amount}" /> VND
+                                    </td>
                                 </tr>
                         </tbody>
                     </table>

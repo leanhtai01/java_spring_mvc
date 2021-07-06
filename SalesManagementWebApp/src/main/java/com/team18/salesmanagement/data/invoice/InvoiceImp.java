@@ -10,6 +10,8 @@ import com.team18.salesmanagement.data.product.IProductRepository;
 import com.team18.salesmanagement.domain.invoice.DiscountUnit;
 import com.team18.salesmanagement.domain.invoice.Invoice;
 import com.team18.salesmanagement.domain.invoice.OrderDetail;
+import com.team18.salesmanagement.domain.membershiptype.MembershipType;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -60,13 +62,34 @@ public class InvoiceImp implements InvoiceInterface{
             result.setDiscount_unit_display("%");
             result.setPriceDiscount(subTotal * (result.getDiscount_value() / 100.0d));
         }
-        result.setAmount(subTotal - result.getPriceDiscount());
         result.setSubTotal(subTotal);
-        
         result.setCustomer(customerRepository.getCustomer(result.getCustomer_id()));
+        result.setMembershipType(getMemberShip(result.getCustomer().getMembershipTypeId()));
+        if (result.getMembershipType().getDiscountUnit().equals("FLAT_CURRENCY")) {
+            result.setPriceMemberDiscount(result.getMembershipType().getDiscountValue().doubleValue());
+        } else {
+            result.setDiscount_unit_display("%");
+            result.setPriceMemberDiscount(subTotal * (result.getMembershipType().getDiscountValue().doubleValue() / 100.0d));
+        }
+        
+        result.setAmount(subTotal - result.getPriceDiscount() - result.getPriceMemberDiscount());
         return result;
     }
     
+    private MembershipType getMemberShip(Integer member_ship_id) {
+        String SQL = "select * from membership_types where id="+ member_ship_id;
+        return jdbcOperations.queryForObject(SQL, (rs, rowNum) -> {
+            return new MembershipType(
+                    rs.getInt("id"),
+                    rs.getString("membership_type"),
+                    rs.getBigDecimal("debt_limit"),
+                    rs.getBigDecimal("discount_value"),
+                    rs.getString("discount_unit"),
+                    ((Date)rs.getObject("valid_from")).toLocalDate(),
+                    ((Date)rs.getObject("valid_until")).toLocalDate()
+            );
+        });
+    }
     private List<OrderDetail> getOrderDetailByOrderId(Integer order_id) {
         List<OrderDetail> rs;
         String SQL = "SELECT order_details.order_id,order_details.product_id,order_details.quantity,"

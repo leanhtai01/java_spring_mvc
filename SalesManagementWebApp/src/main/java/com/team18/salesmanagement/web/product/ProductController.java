@@ -62,6 +62,6 @@ public class ProductController {
         if (rs == 1) {
             return "redirect:list";
         }
-        return "error";
+        return "products/error";
     }
 }
