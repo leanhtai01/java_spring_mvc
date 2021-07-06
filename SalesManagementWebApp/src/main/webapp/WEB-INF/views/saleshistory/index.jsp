@@ -17,7 +17,7 @@
     <body>
         <h1 class="text-center">Sales History</h1>
         <div class="my-4 p-2">
-            <form class="d-flex col-sm-5" action="./list" method="get">
+            <form id="form" class="d-flex col-sm-5" action="./list" method="get">
                 <div class="input-group">
                     <label class="input-group-text">From Date</label>
                     <input type="date" id="f_from_date" name="f_from_date">
@@ -26,7 +26,7 @@
                     <label class="input-group-text">To Date</label>
                     <input type="date" id="f_to_date" name="f_to_date">
                 </div>
-                <button class="btn btn-secondary">Show</button>
+                <a href="#" onclick="submitClick()" class="btn btn-secondary">Show</a>
             </form>
         </div>
         <table class="table table-hover">
@@ -52,5 +52,24 @@
             </tbody>
         </table>
     </body>
+    <script>
+        function submitClick(){
+            $error = "";
+            
+            if ($('#f_from_date').val() === "") {
+                $error = $error + "from date must not be empty \n";
+            }
+
+            if ($('#f_to_date').val() === "") {
+                $error = $error + "to date must not be empty \n";
+            }
+            
+            if ($error !== "") {
+                alert($error);
+            } else {
+                $("#form").submit();
+            }
+        }
+    </script>
     <script src="../scripts/jquery-3.6.0.min.js"></script>
 </html>
