@@ -69,13 +69,18 @@ public class ProductRepositoryIml implements IProductRepository{
     public int saveProduct(Product product){
         int result = 0;
         String SQL = "";
-        if (product.getId() != null) {
-            SQL = "UPDATE products SET name=?, weight=?, price=? WHERE id = ?";
-            result = jdbcOperations.update(SQL, product.getName(), product.getWeight(), product.getPrice(), product.getId());
-        } else {
-            SQL = "INSERT INTO products(name, weight, price) VALUES (?,?,?)";
-            result = jdbcOperations.update(SQL, product.getName(), product.getWeight(), product.getPrice());
+        try {
+            if (product.getId() != null) {
+                SQL = "UPDATE products SET name=?, weight=?, price=? WHERE id = ?";
+                result = jdbcOperations.update(SQL, product.getName(), product.getWeight(), product.getPrice(), product.getId());
+            } else {
+                SQL = "INSERT INTO products(name, weight, price) VALUES (?,?,?)";
+                result = jdbcOperations.update(SQL, product.getName(), product.getWeight(), product.getPrice());
+            }
+        } catch (Exception e) {
+            result = 0;
         }
+        
         return result;
     }
     

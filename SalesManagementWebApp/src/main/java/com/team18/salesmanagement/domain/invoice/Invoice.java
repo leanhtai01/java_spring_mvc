@@ -6,6 +6,7 @@
 package com.team18.salesmanagement.domain.invoice;
 
 import com.team18.salesmanagement.domain.customer.Customer;
+import com.team18.salesmanagement.domain.membershiptype.MembershipType;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,12 +24,14 @@ public class Invoice implements Serializable{
     private Double discount_value;
     private DiscountUnit discount_unit;
     private Customer customer;
+    private MembershipType membershipType;
     private List<OrderDetail> orderDetail = new ArrayList<>();
     
     private String discount_unit_display;
     private Double priceDiscount;
     private Double amount;
     private Double subTotal;
+    private Double priceMemberDiscount;
 
     public Invoice(Integer id, Integer customer_id, Date order_date, Double discount_value, DiscountUnit discount_unit) {
         this.id = id;
@@ -127,6 +130,22 @@ public class Invoice implements Serializable{
 
     public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
+    }
+
+    public MembershipType getMembershipType() {
+        return membershipType;
+    }
+
+    public void setMembershipType(MembershipType membershipType) {
+        this.membershipType = membershipType;
+    }
+
+    public Double getPriceMemberDiscount() {
+        return priceMemberDiscount;
+    }
+
+    public void setPriceMemberDiscount(Double priceMemberDiscount) {
+        this.priceMemberDiscount = priceMemberDiscount;
     }
     
 }

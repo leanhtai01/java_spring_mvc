@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1 style="color: red">Opp! Have some error ( may be product has exist ) !!!</h1>
+        <div style="text-align: center"><a href="list">Back to Products</a></div>
     </body>
 </html>
