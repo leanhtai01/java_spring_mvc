@@ -5,18 +5,24 @@ package com.team18.salesmanagement.data.membershiptype;
 import com.team18.salesmanagement.domain.membershiptype.MembershipType;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class JdbcMembershipTypeRepository implements IMembershipTypeRepository {
     private final JdbcOperations jdbcOperations;
+    private final SimpleJdbcCall simpleJdbcCall;
     
     @Autowired
-    public JdbcMembershipTypeRepository(JdbcOperations jdbcOperations) {
+    public JdbcMembershipTypeRepository(JdbcOperations jdbcOperations,
+            SimpleJdbcCall simpleJdbcCall) {
         this.jdbcOperations = jdbcOperations;
+        this.simpleJdbcCall = simpleJdbcCall;
     }
     
     @Override
@@ -105,5 +111,33 @@ public class JdbcMembershipTypeRepository implements IMembershipTypeRepository {
                 }, id);
         
         return membershipType.getDebtLimit();
+    }
+    
+    // insert a new membership type
+    @Override
+    public Integer insert(MembershipType membershipType) {
+        Map<String, Object> params = new HashMap<>();
+        Integer membershipTypeId = -1;
+        Integer errorCode = 0;
+        
+        params.put("param_membership_type", membershipType.getMembershipType());
+        params.put("param_debt_limit", membershipType.getDebtLimit());
+        params.put("param_discount_value", membershipType.getDiscountValue());
+        params.put("param_discount_unit", membershipType.getDiscountUnit());
+        params.put("param_valid_from", membershipType.getValidFrom());
+        params.put("param_valid_until", membershipType.getValidUntil());
+        params.put("membership_type_id", membershipTypeId);
+        params.put("error_code", errorCode);
+        
+        Map<String, Object> result = simpleJdbcCall
+                .withProcedureName("insert_membership_type")
+                .execute(params);
+        errorCode = (Integer) result.get("error_code");
+        
+        if (errorCode == 1) {
+            throw new DuplicateMembershipTypeException();
+        }
+        
+        return (Integer) result.get("membership_type_id");
     }
 } // end class JdbcMembershipTypeRepository

@@ -12,4 +12,5 @@ public interface IMembershipTypeRepository {
     BigDecimal getDiscountValue(int id);
     String getDiscountUnit(int id);
     BigDecimal getDebtLimit(Integer id);
+    Integer insert(MembershipType membershipType);
 }
