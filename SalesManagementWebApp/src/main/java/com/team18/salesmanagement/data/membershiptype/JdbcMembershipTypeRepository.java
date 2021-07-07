@@ -140,4 +140,34 @@ public class JdbcMembershipTypeRepository implements IMembershipTypeRepository {
         
         return (Integer) result.get("membership_type_id");
     }
+    
+    // update a membership type
+    @Override
+    public void update(MembershipType membershipType) {
+        Map<String, Object> params = new HashMap<>();
+        Integer errorCode = 0;
+        
+        params.put("param_id", membershipType.getId());
+        params.put("param_membership_type", membershipType.getMembershipType());
+        params.put("param_debt_limit", membershipType.getDebtLimit());
+        params.put("param_discount_value", membershipType.getDiscountValue());
+        params.put("param_discount_unit", membershipType.getDiscountUnit());
+        params.put("param_valid_from", membershipType.getValidFrom());
+        params.put("param_valid_until", membershipType.getValidUntil());
+        params.put("error_code", errorCode);
+        
+        Map<String, Object> result = simpleJdbcCall
+                .withProcedureName("update_membership_type")
+                .execute(params);
+        errorCode = (Integer) result.get("error_code");
+        
+        switch (errorCode) {
+            case 1:
+                throw new DuplicateMembershipTypeException();
+            case 3:
+                throw new NotExistMembershipTypeException();
+            default:
+                break;
+        }
+    }
 } // end class JdbcMembershipTypeRepository
