@@ -13,6 +13,7 @@
     </head>
     <body>
         <a href="list">Display Membership Type List</a><br>
-        <a href="search">Search Membership Type</a>
+        <a href="search">Search Membership Type</a><br>
+        <a href="add_form">Add new Membership Type</a>
     </body>
 </html>

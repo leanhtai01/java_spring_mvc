@@ -36,4 +36,10 @@ public class MembershipTypeController {
     public String displayManager() {
         return "membershiptype/manager";
     }
+    
+    // display Membership Type add form
+    @RequestMapping(value = "/add_form", method = RequestMethod.GET)
+    public String displayAddForm() {
+        return "membershiptype/add_form";
+    }
 } // end class MembershipTypeController
