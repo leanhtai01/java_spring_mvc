@@ -475,3 +475,45 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure update a Membership Type
+DELIMITER $$
+
+CREATE PROCEDURE update_membership_type(IN param_id INT,
+                                        IN param_membership_type VARCHAR(20),
+					IN param_debt_limit DECIMAL(13, 4),
+					IN param_discount_value DECIMAL(13, 4),
+					IN param_discount_unit ENUM('PERCENT', 'FLAT_CURRENCY'),
+					IN param_valid_from DATE,
+					IN param_valid_until DATE,
+					OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM membership_types
+	 WHERE LOWER(membership_type) = LOWER(param_membership_type)
+	       AND id != param_id) > 0)
+    THEN
+        SET error_code = 1; -- membership type already exists
+    ELSE
+        IF ((SELECT COUNT(*)
+	     FROM membership_types
+	     WHERE id = param_id) > 0)
+	THEN
+	    -- update the membership type
+	    UPDATE membership_types
+	    SET membership_type = param_membership_type,
+	        debt_limit = param_debt_limit,
+		discount_value = param_discount_value,
+		discount_unit = param_discount_unit,
+		valid_from = param_valid_from,
+		valid_until = param_valid_until
+	    WHERE id = param_id;
+
+            SET error_code = 0; -- update success
+	ELSE
+	    SET error_code = 3; -- membership type not exists
+	END IF;
+    END IF;
+END $$
+
+DELIMITER ;
