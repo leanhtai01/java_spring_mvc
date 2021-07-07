@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/membershiptype")
@@ -41,5 +42,16 @@ public class MembershipTypeController {
     @RequestMapping(value = "/add_form", method = RequestMethod.GET)
     public String displayAddForm() {
         return "membershiptype/add_form";
+    }
+    
+    // display update form
+    @RequestMapping(value = "update_form", method = RequestMethod.GET)
+    public String displayUpdateForm(@RequestParam int id, Model model) {
+        MembershipType membershipType = membershipTypeRepository
+                .getMembershipType(id);
+        
+        model.addAttribute(membershipType);
+        
+        return "membershiptype/update_form";
     }
 } // end class MembershipTypeController

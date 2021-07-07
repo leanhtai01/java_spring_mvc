@@ -14,4 +14,5 @@ public interface IMembershipTypeRepository {
     BigDecimal getDebtLimit(Integer id);
     Integer insert(MembershipType membershipType);
     void update(MembershipType membershipType);
+    MembershipType getMembershipType(int id);
 }

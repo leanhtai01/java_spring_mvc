@@ -24,7 +24,7 @@
                     <td>${membershipType.discountUnit}</td>
                     <td>${membershipType.validFrom}</td>
                     <td>${membershipType.validUntil}</td>
-                    <td><a href="edit?id=${membershipType.id}">edit</a></td>
+                    <td><a href="update_form?id=${membershipType.id}">update</a></td>
                     <td><a href="delete?id=${membershipType.id}">delete</a></td>
                 </tr>
             </c:forEach>

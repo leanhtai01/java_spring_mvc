@@ -170,4 +170,24 @@ public class JdbcMembershipTypeRepository implements IMembershipTypeRepository {
                 break;
         }
     }
+    
+    // get Membership Type by id
+    @Override
+    public MembershipType getMembershipType(int id) {
+        final String GET_MEMBERSHIP_TYPE = "SELECT * "
+                + "FROM membership_types "
+                + "WHERE id = ?;";
+        return jdbcOperations.queryForObject(GET_MEMBERSHIP_TYPE,
+                (rs, rowNum) -> {
+                    return new MembershipType(
+                            rs.getInt("id"),
+                            rs.getString("membership_type"),
+                            rs.getBigDecimal("debt_limit"),
+                            rs.getBigDecimal("discount_value"),
+                            rs.getString("discount_unit"),
+                            ((Date) rs.getObject("valid_from")).toLocalDate(),
+                            ((Date) rs.getObject("valid_until")).toLocalDate()
+                    );
+                }, id);
+    }
 } // end class JdbcMembershipTypeRepository
