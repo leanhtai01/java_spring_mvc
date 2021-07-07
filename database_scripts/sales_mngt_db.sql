@@ -443,3 +443,35 @@ BEGIN
 END $$
 
 DELIMITER ;
+
+-- create stored procedure insert new Membership Type
+DELIMITER $$
+
+CREATE PROCEDURE insert_membership_type(IN param_membership_type VARCHAR(20),
+                                        IN param_debt_limit DECIMAL(13, 4),
+					IN param_discount_value DECIMAL(13, 4),
+					IN param_discount_unit ENUM('PERCENT', 'FLAT_CURRENCY'),
+					IN param_valid_from DATE,
+					IN param_valid_until DATE,
+					OUT membership_type_id INT,
+					OUT error_code INT)
+BEGIN
+    IF ((SELECT COUNT(*)
+         FROM membership_types
+	 WHERE LOWER(membership_type) = LOWER(param_membership_type)) > 0)
+    THEN
+        SET error_code = 1; -- membership type already exists
+    ELSE
+        -- insert new membership type
+	INSERT INTO membership_types(membership_type, debt_limit,
+	                             discount_value, discount_unit, valid_from,
+				     valid_until)
+	VALUES (param_membership_type, param_debt_limit, param_discount_value,
+	        param_discount_unit, param_valid_from, param_valid_until);
+
+        SET membership_type_id = (SELECT LAST_INSERT_ID());
+	SET error_code = 0; -- insert success
+    END IF;
+END $$
+
+DELIMITER ;
