@@ -28,4 +28,4 @@ https://github.com/leanhtai01/team18_final_project
 - IDE: Apache NetBeans 12
 - JDK 15
 ## Demo video
-- Link Youtube:
+- Link Youtube: https://youtu.be/kzz6DXRCBWQ
