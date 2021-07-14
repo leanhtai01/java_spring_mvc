@@ -75,13 +75,13 @@ public class CustomerController {
     // display add success page
     @RequestMapping(value = "add_success", method = RequestMethod.GET)
     public String displayAddSuccess() {
-        return "customer/add_success";
+        return "redirect:/customer/list?phoneNumber=";
     }
     
     // display update success page
     @RequestMapping(value = "update_success", method = RequestMethod.GET)
     public String displayUpdateSuccess() {
-        return "customer/update_success";
+        return "redirect:/customer/list?phoneNumber=";
     }
     
     // process add new Customer
