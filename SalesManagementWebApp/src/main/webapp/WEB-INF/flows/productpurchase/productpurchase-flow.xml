@@ -32,7 +32,7 @@
     
     <!-- save order -->
     <action-state id="saveOrder">
-        <evaluate expression="orderFlowActions.saveOrder(order)"/>
+        <evaluate result="order.id" expression="orderFlowActions.saveOrder(order)"/>
         <transition to="orderComplete"/>
     </action-state>
     

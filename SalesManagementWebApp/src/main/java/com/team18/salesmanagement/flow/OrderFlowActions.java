@@ -32,7 +32,7 @@ public class OrderFlowActions {
     @Autowired
     IOrderDetailRepository orderDetailRepository;
     
-    public void saveOrder(Order compositeOrder) {
+    public Integer saveOrder(Order compositeOrder) {
         // create objects from composite Order
         com.team18.salesmanagement.domain.order.Order basicOrder =
                 new com.team18.salesmanagement.domain.order.Order(
@@ -67,5 +67,7 @@ public class OrderFlowActions {
             
             orderDetailRepository.insert(orderDetail);
         }
+        
+        return orderId;
     }
 }

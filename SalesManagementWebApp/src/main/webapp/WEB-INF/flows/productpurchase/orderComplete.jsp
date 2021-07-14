@@ -19,6 +19,7 @@
             <li>${order.customer.phoneNumber}</li>
             <li>${order.customer.membershipType}</li>
         </ul>
+        <a href="invoice/detail?order_id=${order.id}">Export Invoice</a>
         <a href='${flowExecutionUrl}&_eventId=finished'>Finish</a>
     </body>
 </html>
