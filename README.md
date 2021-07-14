@@ -1,4 +1,6 @@
 # team18_final_project
+## Link GitHub
+https://github.com/leanhtai01/team18_final_project
 ## Danh sách nhóm
 |MSSV|Họ và tên|Ghi chú|
 |----|---------|-------|
